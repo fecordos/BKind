@@ -1,0 +1,27 @@
+﻿@model BKind.Models.Category
+
+@{
+    ViewData["Title"] = "Șterge";
+}
+
+<h1>Șterge</h1>
+
+<h3>Sigur vrei să ștergi această înregistrare?</h3>
+<div>
+    <h4>Categorie</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Denumire
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Șterge" class="btn btn-danger" /> |
+        <a asp-action="Index">Lista categoriilor</a>
+    </form>
+</div>

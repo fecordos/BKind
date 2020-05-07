@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using BKind.Models
+@inject SignInManager<AppUser> SignInManager
+
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item"><a asp-action="Index" class="nav-link @BKind.Models.Manage.ManageNavPages.IndexNavClass(ViewContext)" id="profile">Profil</a></li>
+    <li class="nav-item"><a asp-action="ChangePassword" class="nav-link @BKind.Models.Manage.ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password">Parolă</a></li>
+    <li class="nav-item"><a asp-action="PersonalData" class="nav-link @BKind.Models.Manage.ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data">Date personale</a></li>
+</ul>

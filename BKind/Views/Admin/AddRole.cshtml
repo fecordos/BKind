@@ -1,0 +1,28 @@
+﻿@model BKind.ViewModels.AddRoleViewModel
+
+@{
+    ViewData["Title"] = "Adauga rol";
+}
+
+<h2>Creează un rol nou</h2>
+
+<form asp-controller="Admin" asp-action="AddRole" method="post" class="form-horizontal">
+    <h4>Introdu datele despre noul rol mai jos</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="RoleName" class="col-md-2 control-label">Denumire</label>
+        <div class="col-md-10">
+            <input asp-for="RoleName" class="form-control"/>
+            <span asp-validation-for="RoleName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Creează"/>
+        </div>
+    </div>
+</form>
+

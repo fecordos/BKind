@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BKind.Models.Address>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create">Adaugă o nouă adresă</a>
+</p>
+
+
+<h4>Lista adreselor</h4>
+
+@if (!Model.Any())
+{
+    <div class="card" style="width: 25rem;">
+        <div class="card-body">
+            <p class="card-title">Nu a fost adăugată încă nicio adresă.</p>
+        </div>
+    </div>
+    <br />
+
+    <a asp-action="Create">Click aici pentru a adăuga o adresă nouă.</a>
+
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th></th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Modifică</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Detalii</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Șterge</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+
+}
+

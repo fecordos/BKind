@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BKind.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create">Adaugă o nouă categorie</a>
+</p>
+
+
+<h4>Categorii</h4>
+
+@if (!Model.Any())
+{
+    <div class="card" style="width: 25rem;">
+        <div class="card-body">
+            <p class="card-title">Nu a fost adăugată încă nicio categorie.</p>
+        </div>
+    </div>
+    <br />
+
+    <a asp-action="Create">Click aici pentru a adăuga o categorie nouă.</a>
+   
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>
+                Denumire
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Editează</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Detalii</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Șterge</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+
+}
+
+

@@ -1,0 +1,83 @@
+﻿@model BKind.ViewModels.AddUserViewModel
+@{
+    ViewData["Title"] = "AddUser";
+}
+
+<h2>Creează un user nou</h2>
+<form asp-controller="Admin" asp-action="AddUser" method="post" class="form-horizontal">
+    <h4>Introdu datele despre noul utilizator mai jos</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Username" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Username" class="form-control" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FirstName" class="col-md-2 control-label">Prenume</label>
+        <div class="col-md-10">
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName" class="col-md-2 control-label">Nume</label>
+        <div class="col-md-10">
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateOfBirth" class="col-md-2 control-label">Data nașterii</label>
+        <div class="col-md-10">
+            <input asp-for="DateOfBirth" class="form-control" />
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="City" class="col-md-2 control-label">Oraș</label>
+        <div class="col-md-10">
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Country" class="col-md-2 control-label">Țara</label>
+        <div class="col-md-10">
+            <input asp-for="Country" class="form-control" />
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="col-md-2 control-label">E-mail</label>
+        <div class="col-md-10">
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password" class="col-md-2 control-label">Parola</label>
+        <div class="col-md-10">
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Creează user" />
+            <a asp-action="UserManagement" class="btn btn-primary">Anulează</a>
+        </div>
+    </div>
+</form>
+

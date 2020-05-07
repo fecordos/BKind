@@ -1,0 +1,68 @@
+﻿@model BKind.Models.Manage.Index
+@{
+    ViewData["Title"] = "Profil";
+    ViewData["ActivePage"] = BKind.Models.Manage.ManageNavPages.Index;
+
+    var IsEmailConfirmed = (bool)ViewData["IsEmailConfirmed"];
+}
+
+<h3>Editare profil</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+
+
+
+<div class="row">
+    <div class="col-md-7">
+        <form asp-action="Index" id="profile-form" method="post">
+            @*<div asp-validation-summary="All" class="text-danger"></div>*@
+
+
+            <div class="form-group">
+                <label asp-for="Email">E-mail</label>
+                <input asp-for="Email" class="form-control" readonly /> @*a fost confirmat => nu mai poate fi modificat*@
+                <span asp-validation-for="Email" class="text-danger"></span> @*validare client-side*@
+
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName">Prenume</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName">Nume</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth">Data nașterii</label>
+                <input asp-for="DateOfBirth" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="City">Oraș</label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Country">Țara</label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PhoneNumber">Număr de telefon</label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <button id="update-profile-button" type="submit" class="btn btn-outline-dark">Salvează</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

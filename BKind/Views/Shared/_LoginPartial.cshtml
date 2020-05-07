@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BKind.Models
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+
+
+        <li class="nav-item flex-grow-1">
+            <a class="nav-link text-dark" asp-controller="Requests" asp-action="Index">
+                <i class="fa fa-home fa-2x" style="margin-right:20px"></i>
+            </a>
+        </li>
+
+        <li class="nav-item flex-grow-1">
+            <a class="nav-link text-dark" asp-controller="Requests" asp-action="Index">
+                <i class="fa fa-heart-o fa-2x" style="margin-right:20px"></i>
+            </a>
+        </li>
+
+        <li class="nav-item flex-grow-1">
+            <a class="nav-link text-dark" asp-controller="Requests" asp-action="Index">
+                <i class="fa fa-envelope-o fa-2x" style="margin-right:50px"></i>
+            </a>
+        </li>
+
+        @if (User.IsInRole("Administrators"))
+        {
+            <li class="nav-item flex-grow-1">
+                <div class="dropdown">
+                    <button style="background-color:gainsboro" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-key fa-2x" ></i>
+
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="UserManagement">User management</a>
+                        <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="RoleManagement">Role management</a>
+                    </div>
+                </div>
+            </li>
+        }
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post" asp-route-returnUrl="@Url.Action("Login", "Account", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">
+                    <i class="fa fa-sign-out fa-2x" style="margin-left:60px"></i>
+                </button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Înregistrează-te</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Autentifică-te</a>
+        </li>
+    }
+</ul>

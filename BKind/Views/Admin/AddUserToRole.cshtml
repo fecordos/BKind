@@ -1,0 +1,18 @@
+﻿@model BKind.ViewModels.UserRoleViewModel
+@{
+    ViewData["Title"] = "Adaugă un rol utilizatorului";
+}
+
+<h2>Atașează un rol utilizatorului</h2>
+
+<form asp-controller="Admin" asp-action="AddUserToRole">
+    <input type="hidden" name="roleId" value="@Model.RoleId"/>
+    <select asp-for="UserId"
+            asp-items="@(new SelectList(Model.Users, "Id","Email"))">
+        <option>Selectează un user</option>
+    </select>
+    <input class="btn btn-primary" value="Adaugă" type="submit"/>
+</form>
+<br />
+<a asp-action="RoleManagement" class="btn btn-primary">Finalizare</a>
+

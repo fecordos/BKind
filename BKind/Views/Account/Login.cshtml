@@ -1,0 +1,80 @@
+﻿@model BKind.Models.Account.Login
+@using Microsoft.AspNetCore.Authentication;
+
+
+
+@{
+    ViewData["Title"] = "Autentificare";
+    var ReturnUrl = (string)ViewData["ReturnUrl"];
+}
+
+
+<link href="~/css/login.css" rel="stylesheet" />
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <h4>Autentificare</h4>
+
+            </div>
+            <div class="card-body">
+                <form asp-action="Login" asp-route-returnUrl="@ReturnUrl" id="account" method="post">
+
+                    <div class="input-group form-group">
+                        @*<div asp-validation-summary="All" class="text-danger"></div>*@  @*validare client-side*@
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input asp-for="Email" type="text" class="form-control" placeholder="e-mail" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <input asp-for="Password" class="form-control" placeholder="parola" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="row align-items-center remember">
+                        <label asp-for="RememberMe">
+                            <input asp-for="RememberMe" />
+                            @*@Html.DisplayNameFor(m => m.RememberMe)*@
+                            Ține-mă minte
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Intră" class="btn float-right login_btn">
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center links">
+                    Nu ai deja un cont?
+                    <a asp-action="Register" asp-route-returnUrl="@ReturnUrl">Creează unul aici</a>
+
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a asp-action="ForgotPassword" id="forgot-password">Ai uitat parola?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+
+
+

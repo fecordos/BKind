@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BKind.Models.ReqHistory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*@if (!Model.Any())
+{
+
+    <div class="card" style="width: 25rem;">
+        <div class="card-body">
+            <p class="card-title">Nu există cereri adăugate în istoricul tău.</p>
+        </div>
+    </div>
+    <br />
+
+    <a asp-action="Index" asp-controller="Requests">Click aici pentru a vizualiza lista cererilor.</a>
+
+}
+else
+{*@
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+         
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.RequestId
+                </td>
+                <td>
+                    @item.UserId
+                </td>
+                
+            </tr>
+
+        }
+    </table>
+@*}*@
+
+

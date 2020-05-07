@@ -1,0 +1,12 @@
+﻿@model IEnumerable<BKind.Models.Category>
+
+<button type="submit" class="btn btn-primary">Filtrare după categorii</button>
+
+@foreach (var item in Model)
+{
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">@item.Name</label>
+    </div>
+}
+

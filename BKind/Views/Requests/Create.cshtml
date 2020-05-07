@@ -1,0 +1,64 @@
+﻿@model BKind.ViewModels.RequestCreateViewModel
+
+@{
+    ViewData["Title"] = "Creează";
+}
+
+<h1>Adaugă o nouă cerere</h1>
+
+<h4>Cerere</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @*pentru a putea realiza incarcarea pozei cu ajutorul acestui formular,
+            trebuie sa adaug atributul enctype egal cu valoarea multipart/...*@
+        <form enctype="multipart/form-data" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Titlu</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <textarea asp-for="Description" class="control-label">Descriere</textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryID" class="control-label">Categorie</label>
+                <select asp-for="CategoryID" class="form-control" asp-items="ViewBag.CategoryID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonID" class="control-label">Persoană</label>
+                <select asp-for="PersonID" class="form-control" asp-items="ViewBag.PersonID"></select>
+            </div>
+            <div class="form-group">
+                <div class="custom-file">
+                    <input asp-for="Image" class="form-control custom-file-input" asp-items="ViewBag.Image" />
+                    <label asp-for="Image" class="custom-file-label">Alege imagine...</label>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Adaugă" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Lista cererilor</a>
+</div>
+
+@section Scripts {
+
+    @*cod jquery pt a afisa numele pozei la momentul upload*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            })
+        });
+
+    </script>
+}

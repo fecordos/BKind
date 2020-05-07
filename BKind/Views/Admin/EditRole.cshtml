@@ -1,0 +1,49 @@
+﻿@model BKind.ViewModels.EditRoleViewModel
+
+@{
+    ViewData["Title"] = "Modificare rol";
+}
+
+<h2>Modifică rolul</h2>
+
+<form asp-controller="Admin" asp-action="EditRole" method="post" class="form-horizontal">
+    <h4>Modificarea detaliilor despre rol</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="ID" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="ID" class="form-control" readonly="readonly" />
+            <span asp-validation-for="ID" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="RoleName" class="col-md-2 control-label">Denumire</label>
+        <div class="col-md-10">
+            <input asp-for="RoleName" class="form-control" />
+            <span asp-validation-for="RoleName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Salvează rol" />
+            <a asp-action="RoleManagement" class="btn btn-primary">Anulează</a>
+        </div>
+    </div>
+</form>
+
+<h3>Utilizatorii cu acest rol</h3>
+<ul>
+    @foreach(var user in Model.Users)
+    {
+        <li>
+            @user
+        </li>
+    }
+</ul>
+
+<a asp-action="AddUserToRole" asp-route-roleId="@Model.ID" class="btn btn-primary">Adaugă utilizatorului un rol</a>
+<a asp-action="DeleteUserFromRole" asp-route-roleId="@Model.ID" class="btn btn-primary">Șterge utilizatorului rolul</a>

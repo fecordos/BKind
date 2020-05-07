@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "RoleManagement";
+}
+
+<h2>Role management</h2>
+
+@if (!Model.Any())
+{
+    <tr>
+        <td colspan="3" class="text-center">Nu a fost definit încă niciun rol.<br /></td>
+    </tr>
+    <a asp-action="AddRole">Click aici pentru a adăuga un rol nou.</a> 
+
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>ID rol</th>
+            <th>Denumire</th>
+            <th>#Users</th>
+        </tr>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@role.Id</td>
+                <td>@role.Name</td>
+                <td>
+                    <form asp-action="DeleteRole" asp-route-id="@role.Id" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="EditRole" asp-route-id="@role.Id">Editează</a>
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Sigur vrei să ștergi acest rol?')">
+                            Șterge
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <a class="btn btn-primary" asp-action="AddRole">Adaugă noi roluri</a>
+}

@@ -1,0 +1,74 @@
+﻿@model BKind.ViewModels.RequestDetailsViewModel
+@inject SignInManager<AppUser> SignInManager
+
+
+@{
+    ViewData["Title"] = "Detalii";
+    var imagePath = "~/images/" + (Model.Request.ImagePath ?? "defaultimage.jpg"); /*daca utilizatorul nu alege o poza, se pune implicit una*/
+}
+
+<h1>Detalii</h1>
+
+<div>
+    <h4>Cerere</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Titlu cerere:
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Request.Title
+        </dd>
+        <dt class="col-sm-2">
+            Descriere:
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Request.Description
+        </dd>
+        <dt class="col-sm-2">
+            Imagine:
+        </dt>
+        <dd class="col-sm-10">
+            <img class="imageThumbnail" src="@imagePath" asp-append-version="true" alt="image" height="220" width="405" />
+
+        </dd>
+        <dt class="col-sm-2">
+            Categorie:
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Category.Name
+        </dd>
+        <dt class="col-sm-2">
+            Informații persoană:
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Person.FirstName
+            @Model.Person.LastName
+            @Model.Person.DateOfBirth
+
+        </dd>
+        <dt class="col-sm-2">
+            Adresa:
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Address.City
+            @Model.Address.Street
+            @Model.Address.Number
+
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.IsInRole("Administrators"))   @*adminii pot realiza operatii CRUD*@
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Request.ID">Editează</a> <br />
+        <a asp-action="Index" type="button" class="btn btn-outline-dark">Lista cererilor</a>
+    }
+    else
+    {
+        <a asp-action="Index" type="button" class="btn btn-outline-dark">Lista cererilor</a>
+    }
+</div>
+
+
+
