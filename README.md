@@ -5,32 +5,32 @@ Functionalitati implementate:
 
 - Aplicatia are doua tipuri de utilizatori:
 
-a. cei care au rol de admin ("Administrators") - operatii CRUD
-b. tilizatori obisnuiti, cu drepturi restranse
-Nota: adminii pot crea si alte roluri la care sa adauge ulterior anumiti utilizatori ai aplicatiei (role management), 
+   - cei care au rol de admin ("Administrators") - operatii CRUD
+   - tilizatori obisnuiti, cu drepturi restranse
+   - Nota: adminii pot crea si alte roluri la care sa adauge ulterior anumiti utilizatori ai aplicatiei (role management), 
 dar gestioneaza si utilizatorii aplicatiei (user management).
 
 - Inregistrarea utilizatorului:
 
- a. in momentul creării contului, acesta primeste un e-mail cu link-ul unde poate confirmara adresa de mail (SendGrid)
- b. daca adresa nu este confirmata, user-ul nu se poate loga in aplicatie (email confirmation required)
+   - in momentul creării contului, acesta primeste un e-mail cu link-ul unde poate confirmara adresa de mail (SendGrid)
+   - daca adresa nu este confirmata, user-ul nu se poate loga in aplicatie (email confirmation required)
  
 - Autentificarea utilizatorului:
 
-a. dupa confirmare, utilizatorul se poate loga
-b. daca user-ul nu este la prima logare si nu isi aminteste parola, poate solicita "Ai uitat parola?"; 
-   va trebui sa specifice o adresa de mail la care sa primeasca link-ul unde sa-si modifice parola (SendGrid)
-   autentificare cu succes => poate vizualiza postarile existente (pagina "Acasa")
-c. poate realiza cautari printre postari (search bar)
-d. pagina principala "Acasa" prezinta o sectiune in partea stanga, care pentru un user obisnuit are urmatoarele : 
-    1. "Istoricul meu" - unde se vor salva postarile salvate de user/cererile pe care vrea sa le indeplineasca - work in progress
-    2. Setari profil (vizualizare/editare date cont, schimbare parola curenta, descarcare date personale, stergere definitiva a contului)
-    3. Filtrare cereri dupa categorii 
-    4. pentru admini prezinta, in plus: Lista adreselor, Lista persoanelor, Lista categoriilor, Adaugare cereri - pentru gestionarea/realizarea de operatii CRUD asupra bazei de date a aplicatiei
-e. pagina "Acasa" contine postarile adaugate de admin : 
+  - dupa confirmare, utilizatorul se poate loga
+  - daca user-ul nu este la prima logare si nu isi aminteste parola, poate solicita "Ai uitat parola?"; 
+  - va trebui sa specifice o adresa de mail la care sa primeasca link-ul unde sa-si modifice parola (SendGrid)
+  - autentificare cu succes => poate vizualiza postarile existente (pagina "Acasa")
+  - poate realiza cautari printre postari (search bar)
+  - pagina principala "Acasa" prezinta o sectiune in partea stanga, care pentru un user obisnuit are urmatoarele : 
+     -"Istoricul meu" - unde se vor salva postarile salvate de user/cererile pe care vrea sa le indeplineasca - work in progress
+     -Setari profil (vizualizare/editare date cont, schimbare parola curenta, descarcare date personale, stergere definitiva a contului)
+     -Filtrare cereri dupa categorii 
+     -Pentru admini prezinta, in plus: Lista adreselor, Lista persoanelor, Lista categoriilor, Adaugare cereri - pentru gestionarea/realizarea de operatii CRUD asupra bazei de date a aplicatiei
+  - pagina "Acasa" contine postarile adaugate de admin : 
             - user-ul obisnuit: vizualizare detalii + salvare postare in "Istoricul meu" ;
             - pentru admini, are in plus: Edit, Delete postare/request);
-f. navigation bar-ul adminilor prezinta si sectiunea "Admin", unde pot gasi "User management" si "Role management"
+  - navigation bar-ul adminilor prezinta si sectiunea "Admin", unde pot gasi "User management" si "Role management"
 
 
 Functionalitati ramase de implementat: 
