@@ -1,4 +1,4 @@
-# BKind
+# :rainbow: BKind
 
 
 :high_brightness: Functionalitati implementate:
