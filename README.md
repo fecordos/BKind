@@ -23,10 +23,10 @@ dar gestioneaza si utilizatorii aplicatiei (user management).
   - autentificare cu succes => poate vizualiza postarile existente (pagina "Acasa")
   - poate realiza cautari printre postari (search bar)
   - pagina principala "Acasa" prezinta o sectiune in partea stanga, care pentru un user obisnuit are urmatoarele : 
-     -"Istoricul meu" - unde se vor salva postarile salvate de user/cererile pe care vrea sa le indeplineasca - work in progress
-     -Setari profil (vizualizare/editare date cont, schimbare parola curenta, descarcare date personale, stergere definitiva a contului)
-     -Filtrare cereri dupa categorii 
-     -Pentru admini prezinta, in plus: Lista adreselor, Lista persoanelor, Lista categoriilor, Adaugare cereri - pentru gestionarea/realizarea de operatii CRUD asupra bazei de date a aplicatiei
+     a."Istoricul meu" - unde se vor salva postarile salvate de user/cererile pe care vrea sa le indeplineasca - work in progress;
+     b.Setari profil (vizualizare/editare date cont, schimbare parola curenta, descarcare date personale, stergere definitiva a contului);
+     c.Filtrare cereri dupa categorii ;
+     d.Pentru admini prezinta, in plus: Lista adreselor, Lista persoanelor, Lista categoriilor, Adaugare cereri - pentru gestionarea/realizarea de operatii CRUD asupra bazei de date a aplicatiei;
   - pagina "Acasa" contine postarile adaugate de admin : 
             - user-ul obisnuit: vizualizare detalii + salvare postare in "Istoricul meu" ;
             - pentru admini, are in plus: Edit, Delete postare/request);
