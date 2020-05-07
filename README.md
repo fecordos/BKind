@@ -6,7 +6,7 @@ Functionalitati implementate:
 - Aplicatia are doua tipuri de utilizatori:
 
    - cei care au rol de admin ("Administrators") - operatii CRUD
-   - tilizatori obisnuiti, cu drepturi restranse
+   - utilizatori obisnuiti, cu drepturi restranse
    - Nota: adminii pot crea si alte roluri la care sa adauge ulterior anumiti utilizatori ai aplicatiei (role management), 
 dar gestioneaza si utilizatorii aplicatiei (user management).
 
