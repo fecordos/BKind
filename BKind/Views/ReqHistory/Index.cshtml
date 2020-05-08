@@ -4,12 +4,18 @@
     ViewData["Title"] = "Index";
 }
 
-@*@if (!Model.Any())
+
+<link href="~/css/sidebarReqHistory.css" rel="stylesheet" />
+
+
+
+@if (!Model.Any())
 {
 
     <div class="card" style="width: 25rem;">
         <div class="card-body">
             <p class="card-title">Nu există cereri adăugate în istoricul tău.</p>
+
         </div>
     </div>
     <br />
@@ -18,31 +24,129 @@
 
 }
 else
-{*@
-    <table class="table table-condensed table-bordered">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RequestId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-         
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @item.RequestId
-                </td>
-                <td>
-                    @item.UserId
-                </td>
-                
-            </tr>
+{
+    if (User.IsInRole("Administrators"))
+    {
+        <div class="row pt-5">
+            <div class="main">
+                @foreach (var item in Model)
+                {
+                    <div class="card border-dark mb-3" style="width: 30rem;">
+                        <div class="card-header" style="background-color:white;">
+                            @item.Title
+                        </div>
 
-        }
-    </table>
-@*}*@
+                        <div class="card-body text-dark">
+                            <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="200" width="440" />
+
+                            <p class="card-text">
+                                <br />
+                                @item.Description
+                            </p>
+
+                            <a asp-controller="Requests" asp-action="Details" asp-route-id="@item.RequestId" type="button" class="btn btn-light">
+                                <i class="fa fa-sun-o" style="color:gold"></i>
+                                Detalii
+                            </a>
+                            <a asp-controller="Requests" asp-action="Edit" asp-route-id="@item.RequestId" type="button" class="btn btn-light">Editează</a>
+                            <a asp-controller="Requests" asp-action="Delete" asp-route-id="@item.RequestId" type="button" class="btn btn-light">
+                                <i class="fa fa-trash"></i>
+                            </a>
+
+                            <input id="Remove" type="submit" value="Elimină" class="btn btn-danger" style="background-color:crimson" />
+
+                        </div>
+                    </div>
+                }
+
+            </div>
 
 
+            <div class="sidenav">
+
+                <aside class="list-group" style="border: 1px solid black;">
+                    <p class="list-group-item" style="background-color:lightpink; text-align:center">Ai îndeplinit</p>
+                    <div style="font-size:70px; text-align:center;">
+                        @Model.Count()
+                    </div>
+                    <p style="font-size: 35px; text-align:center"> cereri</p>
+                </aside>
+
+            </div>
+
+            <div class="col-sm-5" style="font-size: 150px">
+                <aside>
+                    <br />
+
+                    <p style="font-family:'Monotype Corsiva'; font-size:30px;">
+                        "Oriunde există o fiinţă umană, există şi oportunitatea pentru bunătate." <br />
+                        Seneca
+                    </p>
+                </aside>
+            </div>
+
+
+        </div>
+    }
+
+    else
+    {
+        <div class="row pt-5">
+            <div class="main">
+                @foreach (var item in Model)
+                {
+                    <div class="card border-dark mb-3" style="width: 30rem;">
+                        <div class="card-header" style="background-color:white;">
+                            @item.Title
+                        </div>
+
+                        <div class="card-body text-dark">
+                            <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="200" width="440" />
+
+                            <p class="card-text">
+                                <br />
+                                @item.Description
+                            </p>
+
+                            <a asp-controller="Requests" asp-action="Details" asp-route-id="@item.RequestId" type="button" class="btn btn-light">
+                                <i class="fa fa-sun-o" style="color:gold"></i>
+                                Detalii
+                            </a>
+
+                            <input id="Remove" type="submit" value="Elimină" class="btn btn-danger" style="background-color:crimson" />
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+
+            <div class="sidenav">
+
+                <aside class="list-group" style="border: 1px solid black;">
+                    <p class="list-group-item" style="background-color:lightpink; text-align:center">Ai îndeplinit</p>
+                    <div style="font-size:70px; text-align:center;">
+                        @Model.Count()
+                    </div>
+                    <p style="font-size: 35px; text-align:center"> cereri</p>
+                </aside>
+
+            </div>
+
+            <div class="col-sm-5" style="font-size: 150px">
+                <aside>
+                    <br />
+
+                    <p style="font-family:'Monotype Corsiva'; font-size:30px;">
+                        "Oriunde există o fiinţă umană, există şi oportunitatea pentru bunătate." <br />
+                        Seneca
+                    </p>
+                </aside>
+            </div>
+
+
+        </div>
+    }
+
+}

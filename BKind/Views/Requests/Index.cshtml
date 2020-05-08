@@ -1,14 +1,5 @@
 ﻿@model IEnumerable<BKind.Models.Request>
 
-@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
-@functions{
-    public string GetAntiXsrfRequestToken()
-    {
-        return Xsrf.GetAndStoreTokens(Context).RequestToken;
-    }
-}
-
-
 @{
     ViewData["Title"] = "Index";
 
@@ -20,10 +11,10 @@
 
 <div class="row pt-5">
 
-    <div class="col-sm-3" style="background-color:white">
+    <div class="col-sm-3" style="background-color:white;">
         <aside class="list-group">
 
-            <p class="list-group-item" style="background-color:ghostwhite">Opțiuni </p>
+            <p class="list-group-item" style="background-color:white; text-align:center;">Opțiuni </p>
             <div>
 
                 <a asp-action="Index" asp-controller="ReqHistory" class="list-group-item">
@@ -60,7 +51,7 @@
 
             </div>
             <br />
-            <p class="list-group-item" style="background-color:ghostwhite">Filtrare după categorii</p>
+            <p class="list-group-item" style="background-color:white; text-align:center;">Filtrare după categorii</p>
             <div class="list-group-item">
 
 
@@ -105,34 +96,40 @@
 
                 foreach (var item in Model)
                 {
+                    <form id="form" asp-controller="ReqHistory" asp-action="AddReqToHistory" method="post">
 
-                    <div class="card border-dark mb-3" style="width: 30rem;">
-                        <div class="card-header" style="background-color: ghostwhite ">
-                            @item.Title
+                        <div class="card border-dark mb-3" style="width: 30rem;">
+
+                            <input type="hidden" id="ID" name="ID" asp-for="@item.ID" />
+                            <input type="hidden" id="CategoryID" name="CategoryID" asp-for="@item.CategoryID" />
+                            <input type="hidden" id="Description" name="Description" asp-for="@item.Description" />
+                            <input type="hidden" id="ImagePath" name="ImagePath" asp-for="@item.ImagePath" />
+                            <input type="hidden" id="PersonID" name="PersonID" asp-for="@item.PersonID" />
+                            <input type="hidden" id="Title" name="Title" asp-for="@item.Title" />
+
+
+                            <div class="card-header" style="background-color: white;">
+                                @item.Title
+                            </div>
+
+                            <div class="card-body text-dark">
+                                <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="200" width="440" />
+
+                                <p class="card-text">
+                                    <br />
+                                    @item.Description
+                                </p>
+
+                                <a asp-action="Details" asp-route-id="@item.ID" type="button" class="btn btn-light">
+                                    <i class="fa fa-sun-o" style="color:gold"></i>
+                                    Detalii
+                                </a>
+                                
+                                <input id="Remove" type="submit" value="Elimină" class="btn btn-danger" style="background-color: crimson;" />
+
+                            </div>
                         </div>
-
-                        <div class="card-body text-dark">
-                            <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="200" width="440" />
-
-                            <p class="card-text">
-                                <br />
-                                @item.Description
-                            </p>
-
-                            <a asp-action="Details" asp-route-id="@item.ID" type="button" class="btn btn-light">
-                                <i class="fa fa-sun-o" style="color:gold"></i>
-                                Detalii
-                            </a>
-                            <a asp-action="Edit" asp-route-id="@item.ID" type="button" class="btn btn-light">Editează</a>
-                            <a asp-action="Delete" asp-route-id="@item.ID" type="button" class="btn btn-light">
-                                <i class="fa fa-trash"></i>
-                            </a>
-
-                            <button id="Save" type="button" class="btn btn-warning">Salvează</button>
-
-                        </div>
-                    </div>
-
+                    </form>
                 }
 
 
@@ -141,15 +138,20 @@
             {
                 foreach (var item in Model)
                 {
-                    <form method="post">
+                    <form id="form" asp-controller="ReqHistory" asp-action="AddReqToHistory" method="post">
+
                         <div class="card border-dark mb-3" style="max-width: 30rem;">
 
-                            <div id="RequestId" hidden>@item.ID</div>
-                            <div id="CategoryId" hidden>@item.CategoryID</div>
-                            <div id="PersonId" hidden>@item.PersonID</div>
-                            <div id="ImagePath" hidden>@item.ImagePath</div>
+                            
+                            <input type="hidden" id="ID" name="ID" asp-for="@item.ID" />
+                            <input type="hidden" id="CategoryID" name="CategoryID" asp-for="@item.CategoryID" />
+                            <input type="hidden" id="Description" name="Description" asp-for="@item.Description" />
+                            <input type="hidden" id="ImagePath" name="ImagePath" asp-for="@item.ImagePath" />
+                            <input type="hidden" id="PersonID" name="PersonID" asp-for="@item.PersonID" />
+                            <input type="hidden" id="Title" name="Title" asp-for="@item.Title" />
 
-                            <div id="Title" class="card-header">
+
+                            <div id="Title" class="card-header" style="background-color:white;">
                                 @item.Title
                             </div>
 
@@ -168,11 +170,17 @@
                                     Detalii
                                 </a>
 
-                                <input id="Save" type="submit" value="Salvează" class="btn btn-warning" />
-                                <input id="Remove" type="submit" value="Elimină" class="btn btn-danger" />
+                                <input id="Save" type="submit" value="Salvează" class="btn btn-warning" style="background-color:gold; color:white;"/>
+
+                                <input id="Remove" type="submit" value="Elimină" class="btn btn-danger" style="background-color: crimson;" />
 
                             </div>
                         </div>
+                    </form>
+
+                    <form asp-controller="ReqHistory" asp-action="RemoveReqFromHistory">
+                        <input type="hidden" id="ID" name="ID" asp-for="@item.ID" />
+                        <input type="submit" value="Elimină" class="btn btn-danger" />
                     </form>
                 }
             }
@@ -194,49 +202,24 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    @*cod jquery pt a afisa un mesaj ca cererea a fost adaugata la istoric*@
+    @*cod jquery pt a trimite datele din front-end in ReqHistory (AJAX)*@
 
 <script type="text/javascript">
 
-        $(document).ready(function () {
-            $('#Save').on("click", function () {
+        //$(document).ready(function () {
+        //    $('#Save').on("click", function () {
 
-                //var t = $("input[name='__RequestVerificationToken']").val();
+        //            $('#Save').hide();
+        //            $('#Eliminate').show();
+        //            $('#Info').toggle();
+        //        });
 
-                var requestId = $('#RequestId').val();
-                var title = $('#Title').val();
-                var categoryId = $('#CategoryId').val();
-                var personId = $('#PersonId').val();
-                var description = $('#Description').val();
-                var imagePath = $('#ImagePath').val();
-
-                $.ajax({
-                    type: "POST",
-                    url: "@Url.Action("AddReqToHistory","ReqHistory")",
-
-                    data: {
-                        "RequestId": requestId, "CategoryId": categoryId, "PersonId": personId,
-                        "Title": title, "Description": description, "ImagePath": imagePath},
-                    dataType: "text",
-                    headers: {
-                        "RequestVerificationToken": '@GetAntiXsrfRequestToken()'
-                    },
-                    succes: function (data) { },
-                    error: function () { }
-                });
-
-                //    $('#Save').hide();
-                //    $('#Eliminate').show();
-                //    $('#Info').toggle();
-                //});
-
-                //$('#Eliminate').on("click", function () {
-                //    $('#Eliminate').hide();
-                //    $('#Save').show();
-                //    $('#Info').toggle();
-                //});
-            });
-        });
+        //        $('#Eliminate').on("click", function () {
+        //            $('#Eliminate').hide();
+        //            $('#Save').show();
+        //            $('#Info').toggle();
+        //        });
+        //    });
 
 </script>
 
