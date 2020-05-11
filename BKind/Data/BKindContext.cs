@@ -21,8 +21,15 @@ namespace BKind.Data
 
             base.OnModelCreating(builder);
 
+            //configurez relatia 1-M Request User
+            builder.Entity<Request>()
+               .HasOne<AppUser>(a => a.AppUser)
+               .WithMany(r => r.Requests)
+               .HasForeignKey(b => b.UserId);
+
             //composed key of ReqHistory
-            builder.Entity<ReqHistory>().HasKey(table => new
+            builder.Entity<ReqHistory>()
+                .HasKey(table => new
             {
                 table.UserId, table.RequestId
             });

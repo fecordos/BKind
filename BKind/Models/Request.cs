@@ -28,7 +28,7 @@ namespace BKind.Models
         public int PersonID { get; set; } //FK
         public Person Person { get; set; } //nav property
 
-        public string UserId { get; set; }
+        public string UserId { get; set; } //FK
         public AppUser AppUser { get; set; }
 
 

@@ -7,6 +7,7 @@ using BKind.Data;
 using BKind.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -68,13 +69,19 @@ namespace BKind.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RemoveReqFromHistory(int requestId)
+        public async Task<IActionResult> RemoveReqFromHistory(int ID)
         {
-            var reqHistory = await _context.ReqHistory.FindAsync(_userManager.GetUserId(User), requestId); //FindAsync primeste cheia compusa formata din cele 2 id-uri
-            _context.ReqHistory.Remove(reqHistory);
-            await _context.SaveChangesAsync();
+            var reqHistory = await _context.ReqHistory.FindAsync(_userManager.GetUserId(User), ID); //FindAsync primeste cheia compusa formata din cele 2 id-uri
 
+
+            if (reqHistory != null) {
+                _context.ReqHistory.Remove(reqHistory);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index","ReqHistory");
+
+            }
             return RedirectToAction("Index", "Requests");
+
         }
 
     }

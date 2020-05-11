@@ -1,4 +1,8 @@
-﻿@model IEnumerable<BKind.Models.ReqHistory>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<AppUser> _userManager;
+
+@model IEnumerable<BKind.Models.ReqHistory>
+
 
 @{
     ViewData["Title"] = "Index";
@@ -29,8 +33,12 @@ else
     {
         <div class="row pt-5">
             <div class="main">
+                @{ var requestCount = 0;}
+
                 @foreach (var item in Model)
                 {
+                    if (item.UserId == _userManager.GetUserId(User)) { 
+
                     <div class="card border-dark mb-3" style="width: 30rem;">
                         <div class="card-header" style="background-color:white;">
                             @item.Title
@@ -53,12 +61,44 @@ else
                                 <i class="fa fa-trash"></i>
                             </a>
 
-                            <input id="Remove" type="submit" value="Elimină" class="btn btn-danger" style="background-color:crimson" />
+                            <form asp-controller="ReqHistory" asp-action="RemoveReqFromHistory" asp-route-id="@item.RequestId" method="post">
 
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson;">
+                                    Elimină
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenterTitle">Eliminare cerere</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Sigur vrei să elimini cererea din istoric?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Anulează</button>
+
+                                                <button type="submit" class="btn btn-sm btn-danger" style="background-color: crimson;">
+                                                    Elimină
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
-                }
+                        ++requestCount;
 
+                    }
+                }
             </div>
 
 
@@ -67,7 +107,7 @@ else
                 <aside class="list-group" style="border: 1px solid black;">
                     <p class="list-group-item" style="background-color:lightpink; text-align:center">Ai îndeplinit</p>
                     <div style="font-size:70px; text-align:center;">
-                        @Model.Count()
+                        @requestCount
                     </div>
                     <p style="font-size: 35px; text-align:center"> cereri</p>
                 </aside>
@@ -93,8 +133,13 @@ else
     {
         <div class="row pt-5">
             <div class="main">
+                @{ var requestCount = 0;}
+
                 @foreach (var item in Model)
                 {
+                    if (item.UserId == _userManager.GetUserId(User))
+                    {
+
                     <div class="card border-dark mb-3" style="width: 30rem;">
                         <div class="card-header" style="background-color:white;">
                             @item.Title
@@ -113,10 +158,45 @@ else
                                 Detalii
                             </a>
 
-                            <input id="Remove" type="submit" value="Elimină" class="btn btn-danger" style="background-color:crimson" />
 
+                            <form asp-controller="ReqHistory" asp-action="RemoveReqFromHistory" asp-route-id="@item.RequestId" method="post">
+
+
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson;">
+                                    Elimină
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenterTitle">Eliminare cerere</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Sigur vrei să elimini cererea din istoric?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Anulează</button>
+
+                                                <button type="submit" class="btn btn-sm btn-danger" style="background-color: crimson;">
+                                                    Elimină
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
+                        ++requestCount;
+
+                    }
                 }
 
             </div>
@@ -127,7 +207,7 @@ else
                 <aside class="list-group" style="border: 1px solid black;">
                     <p class="list-group-item" style="background-color:lightpink; text-align:center">Ai îndeplinit</p>
                     <div style="font-size:70px; text-align:center;">
-                        @Model.Count()
+                        @requestCount
                     </div>
                     <p style="font-size: 35px; text-align:center"> cereri</p>
                 </aside>
@@ -145,8 +225,13 @@ else
                 </aside>
             </div>
 
-
         </div>
     }
 
 }
+
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+</script>
