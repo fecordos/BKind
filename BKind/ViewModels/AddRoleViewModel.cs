@@ -9,7 +9,7 @@ namespace BKind.ViewModels
     public class AddRoleViewModel
     {
         [Required]
-        [Display(Name = "Role name")]
+        [Display(Name = "Denumire rol")]
         public string RoleName { get; set; }
     }
 }

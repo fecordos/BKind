@@ -1,5 +1,4 @@
-﻿ 
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +9,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
-
 </head>
+
 <body >
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -28,7 +27,7 @@
                     <div class="nav-item">
                         <form asp-controller="Requests" asp-action="Index" class="form-inline">
                             <p>
-                                <input class="form-control mr-sm-1" type="search" aria-label="Search" name="SearchString" placeholder="Caută cereri...">
+                                <input class="form-control mr-sm-0" type="search" aria-label="Search" name="SearchString" placeholder="Caută cereri...">
                                 <input  value="Caută" type="submit" class="btn btn-sm btn-outline-dark"/>
                             </p>
                         </form>
@@ -37,15 +36,12 @@
 
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-
-
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
-
-
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -56,9 +52,12 @@
             &copy; 2020 - BKind
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>

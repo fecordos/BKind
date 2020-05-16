@@ -10,8 +10,8 @@ namespace BKind.ViewModels
     {
         public string ID { get; set; }
 
-        [Required(ErrorMessage = "Please enter the role name")]
-        [Display(Name = "Role name")]
+        [Required(ErrorMessage = "Te rog introdu numele rolului")]
+        [Display(Name = "Denumire rol")]
         public string RoleName { get; set; }
 
         public List<string> Users { get; set; }

@@ -12,7 +12,6 @@
 <link href="~/css/sidebarReqHistory.css" rel="stylesheet" />
 
 
-
 @if (!Model.Any())
 {
 
@@ -42,6 +41,11 @@ else
                     <div class="card border-dark mb-3" style="width: 30rem;">
                         <div class="card-header" style="background-color:white;">
                             @item.Title
+
+                            <a asp-controller="Requests" asp-action="Delete" asp-route-id="@item.RequestId" class="btn btn-sm btn-light" style="float: right;">
+                                <i class="fa fa-trash"></i>
+                            </a>
+
                         </div>
 
                         <div class="card-body text-dark">
@@ -52,19 +56,17 @@ else
                                 @item.Description
                             </p>
 
-                            <a asp-controller="Requests" asp-action="Details" asp-route-id="@item.RequestId" type="button" class="btn btn-light">
+                            <a asp-controller="Requests" asp-action="Details" asp-route-id="@item.RequestId" class="btn btn-sm btn-light">
                                 <i class="fa fa-sun-o" style="color:gold"></i>
                                 Detalii
                             </a>
-                            <a asp-controller="Requests" asp-action="Edit" asp-route-id="@item.RequestId" type="button" class="btn btn-light">Editează</a>
-                            <a asp-controller="Requests" asp-action="Delete" asp-route-id="@item.RequestId" type="button" class="btn btn-light">
-                                <i class="fa fa-trash"></i>
-                            </a>
+                            <a asp-controller="Requests" asp-action="Edit" asp-route-id="@item.RequestId"  class="btn btn-sm btn-light">Editează</a>
+                           
 
                             <form asp-controller="ReqHistory" asp-action="RemoveReqFromHistory" asp-route-id="@item.RequestId" method="post">
 
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson;">
+                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson; float:right;">
                                     Elimină
                                 </button>
 
@@ -113,19 +115,6 @@ else
                 </aside>
 
             </div>
-
-            <div class="col-sm-5" style="font-size: 150px">
-                <aside>
-                    <br />
-
-                    <p style="font-family:'Monotype Corsiva'; font-size:30px;">
-                        "Oriunde există o fiinţă umană, există şi oportunitatea pentru bunătate." <br />
-                        Seneca
-                    </p>
-                </aside>
-            </div>
-
-
         </div>
     }
 
@@ -137,6 +126,8 @@ else
 
                 @foreach (var item in Model)
                 {
+                    //personalizarea istoricului de cereri
+
                     if (item.UserId == _userManager.GetUserId(User))
                     {
 
@@ -153,7 +144,7 @@ else
                                 @item.Description
                             </p>
 
-                            <a asp-controller="Requests" asp-action="Details" asp-route-id="@item.RequestId" type="button" class="btn btn-light">
+                            <a asp-controller="Requests" asp-action="Details" asp-route-id="@item.RequestId" class="btn btn-sm btn-light">
                                 <i class="fa fa-sun-o" style="color:gold"></i>
                                 Detalii
                             </a>
@@ -163,7 +154,7 @@ else
 
 
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson;">
+                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson; float:right;">
                                     Elimină
                                 </button>
 
@@ -212,17 +203,6 @@ else
                     <p style="font-size: 35px; text-align:center"> cereri</p>
                 </aside>
 
-            </div>
-
-            <div class="col-sm-5" style="font-size: 150px">
-                <aside>
-                    <br />
-
-                    <p style="font-family:'Monotype Corsiva'; font-size:30px;">
-                        "Oriunde există o fiinţă umană, există şi oportunitatea pentru bunătate." <br />
-                        Seneca
-                    </p>
-                </aside>
             </div>
 
         </div>

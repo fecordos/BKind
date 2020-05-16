@@ -11,6 +11,7 @@ namespace BKind.ViewModels
     public class RequestCreateViewModel
     {
         [Required]
+        [StringLength(maximumLength: 50)]
         public string Title { get; set; }
 
         [Required]

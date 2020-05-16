@@ -11,7 +11,7 @@ namespace BKind.Models
         public int ID { get; set; }
 
         [Required]
-        [Display(Name = "Category Name")]
+        [Display(Name = "Categorie")]
         public string Name { get; set; }
 
         //1-M relationship

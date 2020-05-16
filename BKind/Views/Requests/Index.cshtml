@@ -4,77 +4,19 @@
 
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Acasă";
 
 }
 
-<link href="~/css/sidebar.css" rel="stylesheet" />
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
 <div class="row pt-5">
 
     <div class="col-sm-3" style="background-color:white;">
-        <aside class="list-group">
-
-            <p class="list-group-item" style="background-color:white; text-align:center;">Opțiuni </p>
-            <div>
-
-                <a asp-action="Index" asp-controller="ReqHistory" class="list-group-item">
-                    <i class="fa fa-history" aria-hidden="true"></i>
-                    Istoricul meu
-                </a>
-                <a asp-action="Index" asp-controller="Manage" class="list-group-item">
-                    <i class="fa fa-sliders"></i>
-                    Setări profil
-                </a>
-                @if (User.IsInRole("Administrators"))
-
-                {
-
-                    <a asp-action="Create" asp-controller="Requests" class="list-group-item">
-                        <i class="fa fa-plus"></i>
-                        Adaugă o nouă cerere
-                    </a>
-                    <a asp-action="Index" asp-controller="Persons" class="list-group-item">
-                        <i class="fa fa-list"></i>
-                        Lista persoanelor
-                    </a>
-                    <a asp-action="Index" asp-controller="Addresses" class="list-group-item">
-                        <i class="fa fa-list"></i>
-                        Lista adreselor
-                    </a>
-                    <a asp-action="Index" asp-controller="Categories" class="list-group-item">
-                        <i class="fa fa-list"></i>
-                        Lista categoriilor
-                    </a>
-
-
-                }
-
-            </div>
-            <br />
-            <p class="list-group-item" style="background-color:white; text-align:center;">Filtrare după categorii</p>
-            <div class="list-group-item">
-
-
-                @foreach (var item in Model)
-                {
-
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">@item.Category.Name</label>
-                    </div>
-
-                }
-
-                <br />
-                <button type="button" class="btn btn-outline-dark">Filtrează cererile</button>
-            </div>
-
-
-        </aside>
+        <partial name="_SidebarPartial"/>
     </div>
+
 
     <div class="col-sm-7">
 
@@ -113,6 +55,11 @@
 
                             <div class="card-header" style="background-color: white;">
                                 @item.Title
+
+                                <a asp-controller="Requests" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-light" style="float: right;">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+
                             </div>
 
                             <div class="card-body text-dark">
@@ -123,48 +70,12 @@
                                     @item.Description
                                 </p>
 
-                                <a asp-action="Details" asp-route-id="@item.ID" type="button" class="btn btn-sm btn-light">
+                                <a asp-controller="Requests" asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-light">
                                     <i class="fa fa-sun-o" style="color:gold"></i>
                                     Detalii
                                 </a>
+                                <a asp-controller="Requests" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-light">Editează</a>
 
-
-                                <input id="Save" type="submit" value="Salvează" class="btn btn-sm btn-warning" style="background-color:gold; color:white;" />
-
-
-                            </div>
-
-                        </form>
-
-                        <form asp-controller="ReqHistory" asp-action="RemoveReqFromHistory" asp-route-id="@item.ID" method="post">
-
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson;">
-                                Elimină
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalCenterTitle">Eliminare cerere</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Sigur vrei să elimini cererea din istoric?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Anulează</button>
-
-                                            <button type="submit" class="btn btn-sm btn-danger" style="background-color: crimson;">
-                                                Elimină
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                         </form>
@@ -191,6 +102,12 @@
 
                             <div id="Title" class="card-header" style="background-color:white;">
                                 @item.Title
+
+                                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-light" style="float:right;">
+                                    <i class="fa fa-sun-o" style="color:gold"></i>
+                                    Detalii
+                                </a>
+
                             </div>
 
                             <div class="card-body text-dark">
@@ -202,13 +119,7 @@
                                     @item.Description
                                 </p>
 
-
-                                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-light">
-                                    <i class="fa fa-sun-o" style="color:gold"></i>
-                                    Detalii
-                                </a>
-
-                                <input id="Save" type="submit" value="Salvează" class="btn btn-sm btn-warning" style="background-color:gold; color:white;" />
+                                <input id="Save" type="submit" value="Salvează în istoric" class="btn btn-sm btn-warning" style="background-color:gold; color:white; float:right;" />
 
                             </div>
                         </form>
@@ -216,7 +127,7 @@
                         <form asp-controller="ReqHistory" asp-action="RemoveReqFromHistory" asp-route-id="@item.ID" method="post">
 
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson;">
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson; float:right;">
                                 Elimină
                             </button>
 
@@ -252,14 +163,6 @@
         }
     </div>
 
-    @*right side*@
-    @*<div class="col-sm-3" >
-            <aside class="list-group">
-
-                <p class="list-group-item" style="background-color:ghostwhite">Opțiuni</p>
-            </aside>
-        </div>*@
-
 </div>
 
 
@@ -272,23 +175,21 @@
     <script type="text/javascript">
 
 
-                //$(document).ready(function () {
-                //    $('#Save').on("click", function () {
+                $(document).ready(function () {
+                    $('#Save').on("click", function () {
 
-                //            $('#Save').hide();
-                //            $('#Eliminate').show();
+                            $('#Save').css("display","none");
+                           $('#Eliminate').css("display","block");
                            
-                //        });
+                        });
 
-                //        $('#Eliminate').on("click", function () {
-                //            $('#Eliminate').hide();
-                //            $('#Save').show();
+                        $('#Eliminate').on("click", function () {
+                            $('#Eliminate').css("display","none");
+                            $('#Save').css("display","block");
                           
-                //        });
-                //    });
+                        });
+                    });
 
     </script>
-
-
 
 }

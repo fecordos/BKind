@@ -11,11 +11,22 @@
 <h4>Cerere</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
+
         <form enctype="multipart/form-data" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <input type="hidden" asp-for="ExistingImagePath" />
+
+            <div class="form-group">
+                <div class="custom-file">
+                    <input asp-for="Image" class="form-control custom-file-input" asp-items="ViewBag.Image" />
+                    <label asp-for="Image" class="custom-file-label">Click aici pentru a schimba poza</label>
+                </div>
+                <img class="imageThumbnail" src="@imagePath" asp-append-version="true" alt="image" height="220" width="220" />
+
+            </div>
+
             <div class="form-group">
                 <label asp-for="Title" class="control-label">Titlu</label>
                 <input asp-for="Title" class="form-control" />
@@ -36,14 +47,7 @@
                 <select asp-for="PersonID" class="form-control" asp-items="ViewBag.PersonID"></select>
                 <span asp-validation-for="PersonID" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <div class="custom-file">
-                    <input asp-for="Image" class="form-control custom-file-input" asp-items="ViewBag.Image" />
-                    <label asp-for="Image" class="custom-file-label">Click aici pentru a schimba poza</label>
-                </div>
-                <img class="imageThumbnail" src="@imagePath" asp-append-version="true" alt="image" height="220" width="220" />
 
-            </div>
             <div class="form-group">
                 <input type="submit" value="Salvează" class="btn btn-primary" />
             </div>

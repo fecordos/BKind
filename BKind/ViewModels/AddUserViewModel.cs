@@ -9,37 +9,40 @@ namespace BKind.ViewModels
     public class AddUserViewModel
     {
         [Required]
-        [Display(Name = "User name")]
         public string Username { get; set; }
 
 
         [Required]
-        [Display(Name = "First name")]
+        [Display(Name = "Prenume")]
         public string FirstName { get; set; }
 
 
         [Required]
-        [Display(Name ="Last name")]
+        [Display(Name ="Nume")]
         public string LastName { get; set; }
 
         [Required]
-        [Display(Name = "Birthday")]
+        [Display(Name = "Data nașterii")]
         public DateTime DateOfBirth { get; set; }
        
+        [Display(Name = "Localitate/Oraș")]
         public string  City { get; set; }
 
         [Required]
+        [Display(Name = "Țara")]
         public string Country { get; set; }
 
         [Required]
+        [Display(Name = "E-mail")]
         [DataType(DataType.EmailAddress)]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$",
-            ErrorMessage ="Please enter an email in a correct format")]
+            ErrorMessage ="Format invalid")]
         public string Email  { get; set; }
 
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Parola")]
         public string Password { get; set; }
     }
 }

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BKind.Models.Request>
+<link href="~/css/sidebar.css" rel="stylesheet" />
+
+
+<aside class="list-group">
+
+    <p class="list-group-item" style="background-color:white; text-align:center;">Opțiuni </p>
+    <div>
+
+        <a asp-action="Index" asp-controller="ReqHistory" class="list-group-item">
+            <i class="fa fa-history" aria-hidden="true"></i>
+            Istoricul meu
+        </a>
+        <a asp-action="Index" asp-controller="Manage" class="list-group-item">
+            <i class="fa fa-sliders"></i>
+            Setări profil
+        </a>
+        @if (User.IsInRole("Administrators"))
+
+        {
+
+            <a asp-action="Create" asp-controller="Requests" class="list-group-item">
+                <i class="fa fa-plus"></i>
+                Adaugă o nouă cerere
+            </a>
+            <a asp-action="Index" asp-controller="Persons" class="list-group-item">
+                <i class="fa fa-list"></i>
+                Lista persoanelor
+            </a>
+            <a asp-action="Index" asp-controller="Addresses" class="list-group-item">
+                <i class="fa fa-list"></i>
+                Lista adreselor
+            </a>
+            <a asp-action="Index" asp-controller="Categories" class="list-group-item">
+                <i class="fa fa-list"></i>
+                Lista categoriilor
+            </a>
+
+
+        }
+
+    </div>
+    <br />
+    <p class="list-group-item" style="background-color:white; text-align:center;">Filtrare după categorii</p>
+    <div class="list-group-item">
+
+        @*<partial name ="_FilteringRequestsPartial"/>*@
+
+        @*@foreach (var item in Model)
+            {
+
+                <div class="form-check">
+                    <input type="checkbox" name="category" class="form-check-input">
+                    <label class="form-check-label" for="examplecheck1">@item.Category.Name</label>
+                </div>
+
+            }*@
+
+        <br />
+        <button type="button" class="btn btn-outline-dark">Filtrează cererile</button>
+    </div>
+
+
+</aside>
