@@ -6,3 +6,12 @@
     white-space: nowrap;
     overflow: hidden;
 }
+.list-group .list-group-item {
+    color: black;
+    
+}
+
+    .list-group p  {
+        background-color: lightcoral;
+        text-align: center;
+    }

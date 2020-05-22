@@ -12,76 +12,77 @@
 
         <div style="float:right;" class="col-sm-3">
 
-            <a asp-action="Index" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">Lista cererilor</a>
-
-            @if (User.IsInRole("Administrators"))@*adminii pot realiza operatii CRUD*@
-            {
-                <a asp-action="Edit" class="btn btn-lg btn-sm btn-outline-dark" asp-route-id="@Model.Request.ID">Editează cerere</a> <br />
-            }
-            else
-            {
-                <input id="Save" type="submit" value="Salvează în istoric" class="btn btn-sm btn-warning" style="background-color:gold; color:white;" />
-            }
-
-            <div style="" class="col-sm-1">
-                <div class="card" style="width: 9rem;">
+                <div class="card" style=" width: 8rem;">
                     <div class="card-body">
                         <p class="card-title">@Model.Category.Name</p>
                     </div>
                 </div>
+            
+            <br />
+
+                 <a asp-action="Index" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">Lista cererilor</a>
+
+                 @if (User.IsInRole("Administrators"))@*adminii pot realiza operatii CRUD*@
+                 {
+                     <a asp-action="Edit" class="btn btn-lg btn-sm btn-outline-dark" asp-route-id="@Model.Request.ID">Editează cerere</a> <br />
+                 }
+                 else
+                 {
+                     <input id="Save" type="submit" value="Salvează în istoric" class="btn btn-sm btn-warning" style="background-color: gold; color: white;" />
+                 }
+           
+        </div>
+          
+
+        <div style="float:left;" class="col-sm-1">
+            <div class="card" style="width: 13rem; text-align:center; background-color:gold;">
+                <div class="card-body">
+                    <p class="card-title"><h4>Detalii</h4></p>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="card" style="width: 13rem;">
+                <div class="card-header">
+                    <p class="card-title" style="text-align:center;">Adresa</p>
+                </div>
+                <div class="card-body" style="font-size:15px;">
+                    Localitate/Oraș: <br /> @Model.Address.City <br />
+                    Strada: <br /> @Model.Address.Street <br />
+                    Număr:  @Model.Address.Number
+                </div>
+            </div>
+
+            <br />
+
+            <div class="card" style="width: 13rem;">
+                <div class="card-header">
+                    <p class="card-title" style="text-align:center;">Informații persoană</p>
+                </div>
+                <div class="card-body" style="font-size:15px;">
+                    Prenume: @Model.Person.FirstName <br />
+                    Nume: @Model.Person.LastName <br />
+                    Data nașterii: @Model.Person.DateOfBirth.Date
+                </div>
             </div>
         </div>
-
-    <div style="float:left;" class="col-sm-1">
-        <div class="card" style="width: 13rem; text-align:center;">
-            <div class="card-body">
-                <p class="card-title"><h4>Detalii</h4></p>
-            </div>
-        </div>
-
-        <br />
-
-        <div class="card" style="width: 13rem;">
-            <div class="card-header">
-                <p class="card-title" style="text-align:center;">Adresa</p>
-            </div>
-            <div class="card-body" style="font-size:15px;">
-                Localitate/Oraș: <br /> @Model.Address.City <br />
-                Strada: <br /> @Model.Address.Street <br />
-                Număr:  @Model.Address.Number
-            </div>
-        </div>
-
-        <br />
-
-        <div class="card" style="width: 13rem;">
-            <div class="card-header">
-                <p class="card-title" style="text-align:center;">Informații persoană</p>
-            </div>
-            <div class="card-body" style="font-size:15px;">
-               Prenume: @Model.Person.FirstName <br />
-               Nume: @Model.Person.LastName <br />
-               Data nașterii: @Model.Person.DateOfBirth.Date 
-            </div>
-        </div>
-
-    </div>
 
 
         <dl class="row">
             <dt class="col-sm-2">
             </dt>
             <dd class="col-sm-10">
-                <img style="display: block; margin-left: auto; margin-right: auto; width: 90%; height:95%;" class="imageThumbnail" src="@imagePath" asp-append-version="true" alt="image" height="220" width="405" />
+                <img style="display: block; margin-left: auto; margin-right: auto; width: 95%; height:95%;" class="imageThumbnail" src="@imagePath" asp-append-version="true" alt="image" height="220" width="405" />
 
             </dd>
 
-            <dd style="text-align:center;" class="col-sm-10">
+            <dd style="text-align:right;" class="col-sm-10">
                 @Model.Request.Title
             </dd>
-            
-            <dd class="col-sm-10">
-                <div class="card" style="width: 25rem; text-align:center;">
+
+            <dd style="margin: auto;width: 50%; height:50%; border: 2px solid gold;padding: 10px;">
+                <div class="card" style="width: 32rem; text-align:center;">
                     <div class="card-body">
                         <p class="card-title">
                             @Model.Request.Description

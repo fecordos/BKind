@@ -1,18 +1,29 @@
 ﻿@model IEnumerable<BKind.Models.Request>
+
 <link href="~/css/sidebar.css" rel="stylesheet" />
 
 
 <aside class="list-group">
 
-    <p class="list-group-item" style="background-color:white; text-align:center;">Opțiuni </p>
+    <p class="list-group-item">Opțiuni </p>
     <div>
 
-        <a asp-action="Index" asp-controller="ReqHistory" class="list-group-item">
-            <i class="fa fa-history" aria-hidden="true"></i>
-            Istoricul meu
-        </a>
-        <a asp-action="Index" asp-controller="Manage" class="list-group-item">
-            <i class="fa fa-sliders"></i>
+        @if (User.IsInRole("Administrators"))
+        {
+            <a asp-action="Index" asp-controller="ReqHistory" class="list-group-item">
+                <i class="fa fa-history" aria-hidden="true"></i>
+                Istoric
+            </a>
+        }
+        else {
+    <a asp-action="Index" asp-controller="ReqHistory" class="list-group-item" >
+        <i class="fa fa-history" aria-hidden="true" ></i>
+        Istoricul meu
+    </a>
+    }
+        
+        <a asp-action="Index" asp-controller="Manage" class="list-group-item" >
+            <i class="fa fa-sliders" ></i>
             Setări profil
         </a>
         @if (User.IsInRole("Administrators"))
@@ -41,7 +52,7 @@
 
     </div>
     <br />
-    <p class="list-group-item" style="background-color:white; text-align:center;">Filtrare după categorii</p>
+    <p class="list-group-item">Filtrare după categorii</p>
     <div class="list-group-item">
 
         @*<partial name ="_FilteringRequestsPartial"/>*@
@@ -57,7 +68,7 @@
             }*@
 
         <br />
-        <button type="button" class="btn btn-outline-dark">Filtrează cererile</button>
+        <button type="button" class="btn btn-outline-dark"  >Filtrează cererile</button>
     </div>
 
 
