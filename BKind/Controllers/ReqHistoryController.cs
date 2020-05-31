@@ -66,6 +66,25 @@ namespace BKind.Controllers
                 return RedirectToAction("Index", "Requests");
         }
 
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveRequestFromUser(int requestID, string userID)
+        {
+            var reqHistory = await _context.ReqHistory.FindAsync(userID, requestID); //FindAsync primeste cheia compusa formata din cele 2 id-uri
+
+
+            if (reqHistory != null)
+            {
+                _context.ReqHistory.Remove(reqHistory);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "ReqHistory");
+
+            }
+            return RedirectToAction("Index", "Requests");
+
+        }
+
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]

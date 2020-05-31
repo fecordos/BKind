@@ -31,8 +31,5 @@ namespace BKind.Models
         public string UserId { get; set; } //FK
         public AppUser AppUser { get; set; }
 
-
-
-
     }
 }

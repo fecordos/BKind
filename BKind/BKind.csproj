@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20200331130407_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200401061754_InitialCreate.cs" />
     <Compile Remove="Migrations\20200401061754_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200531155406_AddingAppUserAtReqHistoryUserVM1.cs" />
+    <Compile Remove="Migrations\20200531155406_AddingAppUserAtReqHistoryUserVM1.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />

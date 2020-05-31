@@ -15,5 +15,6 @@ namespace BKind.ViewModels
         public virtual Category Category { get; set; }
 
         public virtual Request Request { get; set; }
+
     }
 }

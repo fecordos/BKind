@@ -26,7 +26,6 @@ namespace BKind.Models
 
         public string ImagePath { get; set; }
 
-
         //one-to-one relationship
         public int CategoryID { get; set; }
         public Category Category { get; set; }

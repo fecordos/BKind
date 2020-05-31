@@ -12,7 +12,8 @@ namespace BKind.ViewModels
 
         [Key]
         public int RequestId { get; set; }
-        public ICollection<Request> Requests { get; set; }  //1-M relationship
+        public ICollection<Request> Requests { get; set; }
+
 
 
         [Required]
