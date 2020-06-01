@@ -1,0 +1,95 @@
+﻿@model IEnumerable<BKind.Models.Message>
+@{
+    ViewData["Title"] = "Chat Room";
+    var username = User.Identity.Name;
+
+    string currentUser = null;
+
+    var messageBaseClass = "col-9 list-group-item rounded my-1 py-1 px-3";
+    var messageSenderClass = " bg-primary text-right float-right";
+    var messageOtherSenderClass = " bg-light float-left";
+    var messageDiffUserClass = " mt-4";
+
+    var timestampClass = "text-break font-italic";
+    var userClass = "text-break font-weight-bold";
+    var messageTextClass = "mb-0";
+}
+
+
+<div class="jumbotron py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="text-center">Chat Room</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <ul class="px-0" id="messageList">
+                    @if (Model != null)
+                    {
+                        @foreach (var message in Model.OrderBy(m => m.Id))
+                        {
+                            var builtClass = messageBaseClass;
+                            builtClass += ((username == message.Username) ? messageSenderClass : messageOtherSenderClass);
+                            builtClass += ((currentUser == null || currentUser != message.Username) ? messageDiffUserClass : "");
+
+                            if (currentUser == null || currentUser != message.Username)
+                            {
+                                currentUser = message.Username;
+                            }
+
+                            <li class="@builtClass" user="@message.Username">
+                                <span class="@timestampClass">@message.Timestamp.ToString("M/dd/yyyy, h:mm:ss tt")</span>
+                                <span class="@userClass">@message.Username</span>
+                                <p class="@messageTextClass">@message.Text</p>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col">
+                <form asp-action="Create"
+                      data-ajax-begin="saveMessageClearInputField" data-ajax-complete=""
+                      data-ajax-failure="alert('Failed')" data-ajax-success="sendMessageWrapper"
+                      data-ajax="true" data-ajax-method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <input name="Text" class="form-control" id="inputMessage" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Send" id="submitButton" class="btn btn-outline-primary btn-block" />
+                    </div>
+                    <input type="hidden" value="@username" name="username" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <script>
+        const usernameFromView = "@ViewBag.CurrentUsername";
+        const messageBaseClass = "col-9 list-group-item rounded my-1 py-1 px-3";
+        const messageSenderClass = " bg-primary text-right float-right";
+        const messageOtherSenderClass = " bg-light float-left";
+        const messageDiffUserClass = " mt-4";
+
+        const timestampClass = "text-break font-italic";
+        const userClass = "text-break font-weight-bold";
+        const messageTextClass = "mb-0";
+    </script>
+}
+
+@section scripts
+{
+    <script src="~/lib/signalr/jquery.signalR.min.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/js/chat.js"></script>
+    <script src="~/js/signalrReqHandler.js"></script>
+}

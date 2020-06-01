@@ -36,8 +36,21 @@
                             else
                             {
                                 <a asp-action="Index" asp-controller="ReqHistory" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">Istoricul meu</a>
-                                <input id="Save" type="submit" value="Salvează în istoric" class="btn btn-sm btn-warning" style="background-color: gold; color: white;" />
-                            }
+
+
+                                <form id="form" asp-controller="ReqHistory" asp-action="AddReqToHistory" method="post">
+
+                                    <input type="hidden" id="ID" name="ID" asp-for="@Model.Request.ID" />
+                                    <input type="hidden" id="CategoryID" name="CategoryID" asp-for="@Model.Request.CategoryID" />
+                                    <input type="hidden" id="Description" name="Description" asp-for="@Model.Request.Description" />
+                                    <input type="hidden" id="ImagePath" name="ImagePath" asp-for="@Model.Request.ImagePath" />
+                                    <input type="hidden" id="PersonID" name="PersonID" asp-for="@Model.Request.PersonID" />
+                                    <input type="hidden" id="Title" name="Title" asp-for="@Model.Request.Title" />
+                                    <input id="Save" type="submit" value="Salvează în istoric" class="btn btn-sm btn-warning" style="background-color: gold; color: white;" />
+                                </form>
+
+                            
+                        }
                         </div>
                     </div>
                 </div>

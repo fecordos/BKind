@@ -3,5 +3,19 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     
-  ]
+    {
+      "library": "jquery-ajax-unobtrusive@3.2.6",
+      "destination": "wwwroot/lib/jquery-ajax-unobtrusive/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "signalr@2.4.1",
+      "destination": "wwwroot/lib/signalr/"
+    }
+  ,
+{
+  "library": "signalr.js@2.4.1",
+  "destination": "wwwroot/lib/signalr.js/"
+}
+]
 }

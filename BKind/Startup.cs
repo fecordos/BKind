@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BKind.Services;
+using BKind.Hubs;
 using Microsoft.CodeAnalysis.Options;
 
 namespace BKind
@@ -61,6 +62,8 @@ namespace BKind
             //    options.SlidingExpiration = true;
             //});
 
+            
+
             // adaugarea serviciilor pentru trimitere email
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
@@ -75,6 +78,8 @@ namespace BKind
 
 
             services.AddControllersWithViews();
+            services.AddSignalR(configure => configure.EnableDetailedErrors = true);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,6 +109,8 @@ namespace BKind
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Requests}/{action=Index}/{id?}");   //utilizatorul logat este redirectionat la pagina cu cereri
+                endpoints.MapHub<ChatHub>("/Chat/Index");
+
             });
         }
     }

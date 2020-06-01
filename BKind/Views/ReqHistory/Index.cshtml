@@ -53,7 +53,7 @@ else
                            ID User:<a asp-action="UserManagement" asp-controller="Admin"> @item.UserId </a><br />
                          
                           
-                            <a asp-controller="Requests" asp-action="Delete" asp-route-id="@item.RequestId" class="btn btn-sm btn-light" style="float: right;">
+                            <a asp-controller="Requests" asp-action="Delete" asp-route-id="@item.RequestId" class="btn btn-sm btn-light" style="float: right; background-color:crimson;">
                                 <i class="fa fa-trash"></i>
                             </a>
 
@@ -96,7 +96,7 @@ else
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                Sigur vrei să elimini această cerere din istoricul utilizatorului @item.UserId?
+                                                Sigur vrei să elimini această cerere din istoricul utilizatorului cu ID=@item.UserId?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Anulează</button>
@@ -130,24 +130,14 @@ else
                 </aside>
 
 
-                <aside>
-                    <div class="card" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
-                        </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
+                <div class="card" style=" width: 14.3rem;">
+                    <div class="card-body" style="text-align:center; background-color:white;">
+                        <p class="card-title">Hello</p>
                     </div>
-                </aside>
+                </div>
+
+
+
             </div>
         </div>
     }
@@ -189,7 +179,7 @@ else
 
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson; float:right;">
-                                    Elimină
+                                    Elimină din istoric
                                 </button>
 
                                 <!-- Modal -->

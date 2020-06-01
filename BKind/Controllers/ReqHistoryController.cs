@@ -45,9 +45,19 @@ namespace BKind.Controllers
         public async Task<IActionResult> AddReqToHistory([Bind("ID","CategoryID","Description",
             "ImagePath","PersonID","Title")]Request model)        
         {
+            
                 var currentUser = await _userManager.GetUserAsync(User);
                 var userId = await _userManager.GetUserIdAsync(currentUser);
 
+            //verific daca nu exista deja in baza de date inregistrarea 
+            //Eager loading:
+            var firstReqHistoryRecord = await _context.ReqHistory
+               .Include(r => r.Category)
+               .Include(r => r.Person)
+               .FirstOrDefaultAsync(m => (m.RequestId == model.ID && m.UserId == userId));
+           
+            if(firstReqHistoryRecord == null)
+            {
                 var newReqHistory = new ReqHistory()
                 {
                     UserId = userId,
@@ -60,10 +70,19 @@ namespace BKind.Controllers
 
                 };
 
+                //daca am mai salvat aceasta inregistrare => redirectionare spre pagina Index
+                if (newReqHistory == firstReqHistoryRecord)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                //adaugarea se face doar daca nu exista inregistrarea in baza de date
                 _context.Add(newReqHistory);
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Requests");
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
         }
 
         

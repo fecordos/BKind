@@ -34,6 +34,11 @@ namespace BKind.Data
                 table.UserId, table.RequestId
             });
 
+            builder.Entity<Message>()
+                .HasOne<AppUser>(a => a.Sender)
+                .WithMany(d => d.Messages)
+                .HasForeignKey(d => d.UserId);
+
         }
 
         public DbSet<BKind.Models.Address> Address { get; set; }
@@ -44,6 +49,8 @@ namespace BKind.Data
 
         public DbSet<BKind.Models.Person> Person { get; set; }
         public DbSet<BKind.Models.ReqHistory> ReqHistory { get; set; }
+
+        public DbSet<BKind.Models.Message> Messages { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,11 @@ namespace BKind.Models
 {
     public class AppUser : IdentityUser
     {
+        public virtual ICollection<Message> Messages { get; set; }
+        public AppUser()
+        {
+            Messages = new HashSet<Message>();
+        }
 
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
