@@ -10,6 +10,14 @@
     padding: 0;
 }
 
+
+.card-body .card-text {
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .main {
     margin-left: 40px; /* Same width as the sidebar + left position in px */
     padding: 0px 10px;

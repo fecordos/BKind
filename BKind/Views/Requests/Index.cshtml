@@ -56,7 +56,7 @@
                             <div class="card-header" style="background-color: white;">
                                 @item.Title
 
-                                <a asp-controller="Requests" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-light" style="float: right;">
+                                <a asp-controller="Requests" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-light" style="float: right; background-color:crimson;">
                                     <i class="fa fa-trash"></i>
                                 </a>
 
@@ -65,7 +65,7 @@
                             <div class="card-body text-dark">
                                 <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="200" width="440" />
 
-                                <p class="card-text">
+                                <p id="Description" class="card-text">
                                     <br />
                                     @item.Description
                                 </p>
@@ -88,75 +88,77 @@
             {
                 foreach (var item in Model)
                 {
-                    <div class="card border-dark mb-3" style="max-width: 30rem;">
+    <div class="card border-dark mb-3" style="max-width: 30rem;">
 
-                        <form asp-controller="ReqHistory" asp-action="AddReqToHistory" method="post">
+        <form asp-controller="ReqHistory" asp-action="AddReqToHistory" method="post">
 
-                            <input type="hidden" id="ID" name="ID" asp-for="@item.ID" />
-                            <input type="hidden" id="CategoryID" name="CategoryID" asp-for="@item.CategoryID" />
-                            <input type="hidden" id="Description" name="Description" asp-for="@item.Description" />
-                            <input type="hidden" id="ImagePath" name="ImagePath" asp-for="@item.ImagePath" />
-                            <input type="hidden" id="PersonID" name="PersonID" asp-for="@item.PersonID" />
-                            <input type="hidden" id="Title" name="Title" asp-for="@item.Title" />
-
-
-                            <div id="Title" class="card-header" style="background-color:white;">
-                                @item.Title
-
-                                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-light" style="float:right;">
-                                    <i class="fa fa-sun-o" style="color:gold"></i>
-                                    Detalii
-                                </a>
-
-                            </div>
-
-                            <div class="card-body text-dark">
-                                <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="220" width="440" />
+            <input type="hidden" id="ID" name="ID" asp-for="@item.ID" />
+            <input type="hidden" id="CategoryID" name="CategoryID" asp-for="@item.CategoryID" />
+            <input type="hidden" id="Description" name="Description" asp-for="@item.Description" />
+            <input type="hidden" id="ImagePath" name="ImagePath" asp-for="@item.ImagePath" />
+            <input type="hidden" id="PersonID" name="PersonID" asp-for="@item.PersonID" />
+            <input type="hidden" id="Title" name="Title" asp-for="@item.Title" />
 
 
-                                <p id="Description" class="card-text">
-                                    <br />
-                                    @item.Description
-                                </p>
+            <div id="Title" class="card-header" style="background-color:white;">
+                @item.Title
 
-                                <input id="Save" type="submit" value="Salvează în istoric" class="btn btn-sm btn-warning" style="background-color:gold; color:white; float:right;" />
 
-                            </div>
-                        </form>
+                <input id="Save" type="submit" value="Salvează în istoric" class="btn btn-sm btn-warning" style="background-color:gold; color:white; float:right;" />
 
-                        <form asp-controller="ReqHistory" asp-action="RemoveReqFromHistory" asp-route-id="@item.ID" method="post">
 
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson; float:right;">
-                                Elimină din istoric
+            </div>
+
+            <div class="card-body text-dark">
+                <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="220" width="440" />
+
+
+                <p id="Description" class="card-text">
+                    <br />
+                    @item.Description
+                </p>
+
+            </div>
+        </form>
+
+        <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-light" style="float:right;">
+            <i class="fa fa-sun-o" style="color:gold"></i>
+            Detalii
+        </a>
+
+        <form asp-controller="ReqHistory" asp-action="RemoveReqFromHistory" asp-route-id="@item.ID" method="post">
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson; float:right;">
+                Elimină din istoric
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Eliminare cerere</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
                             </button>
+                        </div>
+                        <div class="modal-body">
+                            Sigur vrei să elimini cererea din istoric?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Anulează</button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalCenterTitle">Eliminare cerere</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Sigur vrei să elimini cererea din istoric?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Anulează</button>
-
-                                            <button type="submit" class="btn btn-sm btn-danger" style="background-color: crimson;">
-                                                Elimină
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </form>
+                            <button type="submit" class="btn btn-sm btn-danger" style="background-color: crimson;">
+                                Elimină
+                            </button>
+                        </div>
                     </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
 
                 }
             }

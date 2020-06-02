@@ -40,7 +40,7 @@ else
 {
     if (User.IsInRole("Administrators"))
     {
-        <div class="row pt-5">
+        <div class="row pt-3">
             <div class="main">
                 @{ var requestCount = 0;}
 
@@ -62,7 +62,7 @@ else
                         <div class="card-body text-dark">
                             <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="200" width="440" />
 
-                            <p class="card-text">
+                            <p id="Description" class="card-text">
                                 <br />
                                 @item.Description
                             </p>
@@ -144,7 +144,7 @@ else
 
     else
     {
-        <div class="row pt-5">
+        <div class="row pt-3">
             <div class="main">
                 @{ var requestCount = 0;}
 
@@ -163,7 +163,7 @@ else
                         <div class="card-body text-dark">
                             <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="200" width="440" />
 
-                            <p class="card-text">
+                            <p id="Description" class="card-text">
                                 <br />
                                 @item.Description
                             </p>
@@ -220,7 +220,7 @@ else
             <div class="sidenav">
 
                 <aside class="list-group" style="border: 1px solid black;">
-                    <p class="list-group-item" style="background-color:lightpink; text-align:center">Ai îndeplinit</p>
+                    <p class="list-group-item" style="background-color:lightpink; text-align:center">@User.Identity.Name, ai îndeplinit</p>
                     <div style="font-size:70px; text-align:center;">
                         @requestCount
                     </div>
