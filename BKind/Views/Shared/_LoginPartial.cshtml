@@ -10,7 +10,16 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-
+        
+    <li >
+        <form asp-controller="Requests" asp-action="Index" class="form-inline" style="margin-right:150px;margin-top:10px;">
+            <p>
+                <input class="form-control mr-sm-0" type="search" aria-label="Search" name="SearchString" placeholder="Caută cereri...">
+                <input value="Caută" type="submit" class="btn btn-sm btn-outline-dark mr-sm-0" />
+            </p>
+        </form>
+    </li>  
+            
 
         <li class="nav-item flex-grow-1">
             <a class="nav-link text-dark" asp-controller="Requests" asp-action="Index">
@@ -35,7 +44,7 @@
             <li class="nav-item flex-grow-1">
                 <div class="dropdown">
                     <button style="background-color:gainsboro" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-key fa-2x" ></i>
+                        <i class="fa fa-key"></i>
 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">

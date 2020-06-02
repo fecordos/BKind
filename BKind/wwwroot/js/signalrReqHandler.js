@@ -2,10 +2,10 @@
     .withUrl('/Chat/Index')
     .build();
 
-// Client listening for server event called 'ReceiveMessage'
+// clientul 'asculta' evenimentul serverului numit'ReceiveMessage'
 connection.on('ReceiveMessage', appendMessage);
 
-connection.start()
+connection.start() 
     .catch(error => {
         console.error(error.message);
     });
@@ -13,6 +13,6 @@ connection.start()
 function sendMessageToServer(message) {
     log("sendMessage", "signalrReqHandler.js", message.text);
 
-    // Invoke a server method called 'BroadcastMessage'
-    connection.invoke('BroadcastMessage', message).catch(err => console.error(err.toString()));
+    // invocam metoda 'GroupMessage'
+    connection.invoke('GroupMessage', message).catch(err => console.error(err.toString()));
 }

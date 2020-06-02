@@ -10,7 +10,7 @@ namespace BKind.Hubs
     public class ChatHub : Hub
     {
         //trimite mesaj spre toti utilizatorii -> mesaj de grup
-        public async Task BroadcastMessage(string message)
+        public async Task GroupMessage(object message)
         {
            await Clients.All.SendAsync("ReceiveMessage", message);
         }
