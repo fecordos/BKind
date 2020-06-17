@@ -37,11 +37,11 @@ dar gestioneaza si utilizatorii aplicatiei (user management).
   - navigation bar-ul adminilor prezinta si sectiunea "Admin", unde pot gasi "User management" si "Role management"
 
  - Salvarea/eliminarea postarii, ce prezinta interes pentru user, la pagina "Istoricul meu".
+ - Creare cookie persistent si sesiune temporara (selectare "Remember me")
+ - Filtrarea postarilor dupa categoriile existente
+ - Functionalitatea de mesagerie (creare ChatRoom/sectiune comuna tuturor utilizatorilor, folosind SignalR pentru servicii real-time, unde utilizatorii pot interactiona si cu administratorii aplicatiei, unde pot pune intrebari/posta anunturi)
+
  
 :high_brightness:Functionalitati ramase de implementat: 
 
-- creare cookie persistent/sesiune temporara
-- sistemul de notificari
-- filtrarea postarilor dupa categoriile existente
-- functionalitatea de mesagerie (userii si adminii pot trimite mesaje unui anumit user al aplicatiei, sau mai multor useri, simultan)
 - design-ul aplicatiei -- almost there
