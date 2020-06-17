@@ -14,5 +14,6 @@ namespace BKind.Hubs
         {
            await Clients.All.SendAsync("ReceiveMessage", message);
         }
+
     }
 }

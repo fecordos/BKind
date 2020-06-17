@@ -4,16 +4,20 @@
     ViewData["Title"] = "Adaugă";
 }
 
-<h1>Adaugă o nouă categorie</h1>
+<h5>Adaugă o nouă categorie</h5>
 
-<h4>Categorie</h4>
+<a asp-action="Index" asp-controller="Requests" class="btn btn-lg btn-sm btn-outline-dark" style="margin-top:10px;">
+    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+    Înapoi la pagina principală
+</a>
+<br />
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-7">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label">Denumire</label>
+                <label asp-for="Name" class="control-label"><b>Denumire*:</b></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
@@ -24,9 +28,6 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Lista categoriilor</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -4,9 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
+
+<a asp-action="Index" asp-controller="Requests" class="btn btn-lg btn-sm btn-outline-dark" style="margin-top:10px; margin-bottom:15px;">
+    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+    Înapoi la pagina principală
+</a>
+<br />
+
 <p>
-    <a asp-action="Create">Adaugă o nouă adresă</a>
+    <a asp-action="Create" class="btn btn-lg btn-sm btn-outline-dark">
+        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+        Adaugă o nouă adresă
+    </a>
 </p>
+
 
 
 <h4>Lista adreselor</h4>

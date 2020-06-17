@@ -25,17 +25,29 @@
                 <div class="col-sm-10">
                     <div class="card">
                         <div class="card-body">
-                            <a asp-action="Index" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">Lista cererilor</a> <br />
+                            <a asp-action="Index" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">
+                                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                                Lista cererilor
+                            </a> <br />
 
                             @if (User.IsInRole("Administrators"))@*adminii pot realiza operatii CRUD*@
                             {
-                                <a asp-action="Edit" class="btn btn-lg btn-sm btn-outline-dark" asp-route-id="@Model.Request.ID">Editează cerere</a> <br /> <br />
-                                <a asp-action="Index" asp-controller="ReqHistory" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">Istoric</a>
+                        <a asp-action="Edit" class="btn btn-lg btn-sm btn-outline-dark" asp-route-id="@Model.Request.ID">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            Editează cerere
+                        </a> <br /> <br />
+                                    <a asp-action="Index" asp-controller="ReqHistory" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">
+                                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                                        Istoric
+                                    </a>
 
                             }
                             else
                             {
-                                <a asp-action="Index" asp-controller="ReqHistory" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">Istoricul meu</a>
+                        <a asp-action="Index" asp-controller="ReqHistory" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">
+                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                            Istoricul meu
+                        </a>
 
 
                                 <form id="form" asp-controller="ReqHistory" asp-action="AddReqToHistory" method="post">

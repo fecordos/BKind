@@ -10,16 +10,19 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        
-    <li >
-        <form asp-controller="Requests" asp-action="Index" class="form-inline" style="margin-right:150px;margin-top:10px;">
-            <p>
-                <input class="form-control mr-sm-0" type="search" aria-label="Search" name="SearchString" placeholder="Caută cereri...">
-                <input value="Caută" type="submit" class="btn btn-sm btn-outline-dark mr-sm-0" />
-            </p>
-        </form>
-    </li>  
-            
+
+        <li>
+            <form asp-controller="Requests" asp-action="Index" class="form-inline" style="margin-right:150px;margin-top:10px;">
+                <p>
+                    <input class="form-control mr-sm-0" type="search" aria-label="Search" name="SearchString" placeholder="Caută cereri...">
+                    <input value="Caută" type="submit" class="btn btn-sm btn-outline-dark mr-sm-0" />
+                </p>
+            </form>
+        </li>
+
+
+
+
 
         <li class="nav-item flex-grow-1">
             <a class="nav-link text-dark" asp-controller="Requests" asp-action="Index">
@@ -27,33 +30,19 @@
             </a>
         </li>
 
+
         <li class="nav-item flex-grow-1">
-            <a class="nav-link text-dark" asp-controller="Requests" asp-action="Index">
-                <i class="fa fa-heart-o fa-2x" style="margin-right:20px"></i>
+            <a class="nav-link text-dark" asp-controller="ReqHistory" asp-action="Index">
+                <i class="fa fa-list-alt fa-2x" style="margin-right:20px; margin-top:2px;" ></i>
             </a>
         </li>
 
         <li class="nav-item flex-grow-1">
             <a class="nav-link text-dark" asp-controller="Chat" asp-action="Index">
-                <i class="fa fa-envelope-o fa-2x" style="margin-right:50px"></i>
+                <i class="fa fa-envelope-o fa-2x" style="margin-right:50px" ></i>
             </a>
         </li>
 
-        @if (User.IsInRole("Administrators"))
-        {
-            <li class="nav-item flex-grow-1">
-                <div class="dropdown">
-                    <button style="background-color:gainsboro" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-key"></i>
-
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="UserManagement">User management</a>
-                        <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="RoleManagement">Role management</a>
-                    </div>
-                </div>
-            </li>
-        }
         <li class="nav-item">
             <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post" asp-route-returnUrl="@Url.Action("Login", "Account", new { area = "" })">
                 <button type="submit" class="nav-link btn btn-link text-dark">

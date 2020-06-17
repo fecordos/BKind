@@ -43,11 +43,14 @@
                     </div>
 
 
-                    <div class="row align-items-center remember">
-                        <label asp-for="RememberMe">
-                            <input asp-for="RememberMe" />
-                            @Html.DisplayNameFor(m => m.RememberMe)
-                        </label>
+                    <div @*class="row align-items-center remember"*@ class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="RememberMe">
+                                <input asp-for="RememberMe" />
+                                @Html.DisplayNameFor(m => m.RememberMe)
+                            </label>
+                        </div>
+                        
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Intră" class="btn float-right login_btn">

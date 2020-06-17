@@ -50,19 +50,6 @@ namespace BKind
             }).AddEntityFrameworkStores<BKindContext>()
              .AddDefaultTokenProviders();
 
-            //cookies settings
-            //services.ConfigureApplicationCookie(options =>
-            //{
-            //    // Cookie settings
-            //    options.Cookie.HttpOnly = true;
-            //    options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
-
-            //    options.LoginPath = "/Account/Login";
-            //    options.AccessDeniedPath = "/Account/AccessDenied";
-            //    options.SlidingExpiration = true;
-            //});
-
-            
 
             // adaugarea serviciilor pentru trimitere email
             services.AddTransient<IEmailSender, EmailSender>();
@@ -72,7 +59,7 @@ namespace BKind
             {
                 var policy = new AuthorizationPolicyBuilder()
                                  .RequireAuthenticatedUser()
-                                 .Build(); //am facut o policy care se aplica global--asupra tuturor controllers--nimeni nu poate vedea paginile daca nu este logat
+                                 .Build(); //policy care se aplica global--asupra tuturor controllers--nimeni nu poate vedea paginile daca nu este logat
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
@@ -110,7 +97,6 @@ namespace BKind
                     name: "default",
                     pattern: "{controller=Requests}/{action=Index}/{id?}");   //utilizatorul logat este redirectionat la pagina cu cereri
                 endpoints.MapHub<ChatHub>("/Chat/Index");
-
             });
         }
     }

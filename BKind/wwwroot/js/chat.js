@@ -12,17 +12,13 @@ class Message {
     }
 }
 
-// usernameFromView is defined in _Index.cshtml_
+// usernameFromView definit in Index.cshtml
 const inputMessage = document.getElementById('inputMessage');
 const messageList = document.getElementById('messageList');
 const messagesToPost = [];
 
 let currentUser = "";
-/* Defined in _Index.cshtml_:
- * usernameFromView, messageBaseClass, messageSenderClass, 
- * messageOtherSenderClass, messageDiffUserClass, 
- * timestampClass, userClass, messageTextClass
-*/
+
 
 function saveMessageClearInputField() {
     messagesToPost.push(inputMessage.value);

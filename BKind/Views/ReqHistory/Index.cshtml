@@ -68,10 +68,13 @@ else
                             </p>
 
                             <a asp-controller="Requests" asp-action="Details" asp-route-id="@item.RequestId" class="btn btn-sm btn-light">
-                                <i class="fa fa-sun-o" style="color:gold"></i>
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>
                                 Detalii
                             </a>
-                            <a asp-controller="Requests" asp-action="Edit" asp-route-id="@item.RequestId"  class="btn btn-sm btn-light">Editează</a>
+                            <a asp-controller="Requests" asp-action="Edit" asp-route-id="@item.RequestId" class="btn btn-sm btn-light">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                Editează
+                            </a>
                            
 
                             <form asp-controller="ReqHistory" asp-action="RemoveRequestFromUser"  method="post">
@@ -121,106 +124,40 @@ else
 
             <div class="sidenav">
 
-                <aside class="list-group" style="border: 1px solid black;">
-                    <p class="list-group-item" style="background-color:lightpink; text-align:center">Numărul cererilor selectate de utilizatori</p>
-                    <div style="font-size:70px; text-align:center;">
-                        @requestCount
-                    </div>
-                    <p style="font-size: 35px; text-align:center"> cereri</p>
-                </aside>
 
+                <div class="box" style="top:0px;">
+                    <div class="container">
+                        <div class="row">
 
-                <div class="card" style=" width: 14.3rem;">
-                    <div class="card-body" style="text-align:center; background-color:white;">
-                        <p class="card-title">Hello</p>
+                            <div>
+
+                                <div class="box-part text-center">
+
+                                    <i class="fa fa-tasks fa-3x" aria-hidden="true" style="margin-bottom:5px;"></i>
+
+                                    <div class="title">
+                                        <h4 style="color:dodgerblue; font-size:20px;"><b>secțiune destinată administratorilor</b></h4>
+                                    </div>
+                                    <hr />
+                                    <div class="text">
+                                        <span>Secțiune ce permite vizualizarea cererilor alese de utilizatori, eliminarea acestora din istoricul utilizatorilor și din baza de date a sistemului.</span>
+
+                                    </div>
+
+                                    <a asp-action="Index" asp-controller="Requests" class="btn btn-lg btn-sm btn-outline-dark" style="margin-top:10px;">
+                                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                                        Înapoi la pagina principală
+                                    </a> <br />
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
 
-
-            </div>
-        </div>
-    }
-
-    else
-    {
-        <div class="row pt-3">
-            <div class="main">
-                @{ var requestCount = 0;}
-
-                @foreach (var item in Model)
-                {
-                    //personalizarea istoricului de cereri
-
-                    if (item.UserId == _userManager.GetUserId(User))
-                    {
-
-                    <div class="card border-dark mb-3" style="width: 30rem;">
-                        <div class="card-header" style="background-color:white;">
-                            @item.Title
-                        </div>
-
-                        <div class="card-body text-dark">
-                            <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="200" width="440" />
-
-                            <p id="Description" class="card-text">
-                                <br />
-                                @item.Description
-                            </p>
-
-                            <a asp-controller="Requests" asp-action="Details" asp-route-id="@item.RequestId" class="btn btn-sm btn-light">
-                                <i class="fa fa-sun-o" style="color:gold"></i>
-                                Detalii
-                            </a>
-
-
-                            <form asp-controller="ReqHistory" asp-action="RemoveReqFromHistory" asp-route-id="@item.RequestId" method="post">
-
-
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson; float:right;">
-                                    Elimină din istoric
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalCenterTitle">Eliminare cerere</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Sigur vrei să elimini cererea din istoric?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Anulează</button>
-
-                                                <button type="submit" class="btn btn-sm btn-danger" style="background-color: crimson;">
-                                                    Elimină
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                        ++requestCount;
-
-                    }
-                }
-
-            </div>
-
-
-            <div class="sidenav">
-
-                <aside class="list-group" style="border: 1px solid black;">
-                    <p class="list-group-item" style="background-color:lightpink; text-align:center">@User.Identity.Name, ai îndeplinit</p>
+                <aside class="list-group" style="border: 1px solid black; float:right; margin-right:150px;">
+                    <p class="list-group-item" style="background-color:lightpink; text-align:center;">Numărul cererilor selectate de utilizatori</p>
                     <div style="font-size:70px; text-align:center;">
                         @requestCount
                     </div>
@@ -228,14 +165,135 @@ else
                 </aside>
 
             </div>
+                    </div>
+                    }
 
-        </div>
-    }
+                    else
+                    {
+                    <div class="row pt-3">
+                        <div class="main">
+                            @{ var requestCount = 0;}
 
-}
+                            @foreach (var item in Model)
+                            {
+                                //personalizarea istoricului de cereri
 
-<script>
-    $('#myModal').on('shown.bs.modal', function () {
-        $('#myInput').trigger('focus')
-    })
-</script>
+                                if (item.UserId == _userManager.GetUserId(User))
+                                {
+
+                                    <div class="card border-dark mb-3" style="width: 30rem;">
+                                        <div class="card-header" style="background-color:white;">
+                                            @item.Title
+                                        </div>
+
+                                        <div class="card-body text-dark">
+                                            <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="200" width="440" />
+
+                                            <p id="Description" class="card-text">
+                                                <br />
+                                                @item.Description
+                                            </p>
+
+                                            <a asp-controller="Requests" asp-action="Details" asp-route-id="@item.RequestId" class="btn btn-sm btn-light">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                Detalii
+                                            </a>
+
+
+                                            <form asp-controller="ReqHistory" asp-action="RemoveReqFromHistory" asp-route-id="@item.RequestId" method="post">
+
+
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson; float:right;">
+                                                    Elimină din istoric
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalCenterTitle">Eliminare cerere</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Sigur vrei să elimini cererea din istoric?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Anulează</button>
+
+                                                                <button type="submit" class="btn btn-sm btn-danger" style="background-color: crimson;">
+                                                                    Elimină
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                    ++requestCount;
+
+                                }
+                            }
+
+                        </div>
+
+
+                        <div class=" sidenav">
+
+                            <div class="box" style="top:0px;">
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div>
+
+                                            <div class="box-part text-center">
+
+                                                <i class="fa fa-heart fa-3x" aria-hidden="true" style="color:crimson; margin-bottom:12px;"></i>
+
+                                                <div class="title">
+                                                    <h4>Istoricul meu</h4>
+                                                    <hr />
+                                                    <h5 style="color:lightcoral;"><b>Ne bucurăm că ești alături de semenii tăi!</b></h5>
+                                                </div>
+
+                                                <div class="text">
+                                                    <span>Ai aici evidența cronologică a cauzelor pe care de-a lungul timpului le-ai sprijinit. </span>
+                                                </div>
+
+                                                <a asp-action="Index" asp-controller="Requests" class="btn btn-lg btn-sm btn-outline-dark" style="margin-top:8px;">
+                                                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                                                    Înapoi la pagina principală
+                                                </a> <br />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <aside class="list-group" style="border: 1px solid black;  margin-left:150px; margin-right:160px;">
+                                <p class="list-group-item" style="background-color:lightpink; text-align:center">Ai îndeplinit</p>
+                                <div style="font-size:70px; text-align:center;">
+                                    @requestCount
+                                </div>
+                                <p style="font-size: 35px; text-align:center"> cereri</p>
+                            </aside>
+
+                        </div>
+
+                    </div>
+                    }
+
+                    }
+
+                    <script>
+                        $('#myModal').on('shown.bs.modal', function () {
+                            $('#myInput').trigger('focus')
+                        })
+                    </script>

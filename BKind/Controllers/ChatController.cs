@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BKind.Data;
 using BKind.Models;
+using System.Dynamic;
 
 namespace BKind.Controllers
 {
@@ -18,7 +19,7 @@ namespace BKind.Controllers
             _userManager = userManager;
         }
 
-        // Display all msgs in DB upon website load
+        // Afisarea tuturor msgs din DB cand se incarca site-ul
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -32,7 +33,7 @@ namespace BKind.Controllers
             return View(messages);
         }
 
-        // Add msg to DB upon form submission
+        // Add msg to DB 
         public async Task<IActionResult> Create(Message message)
         {
             if (ModelState.IsValid)
@@ -44,7 +45,6 @@ namespace BKind.Controllers
                 await _context.Messages.AddAsync(message);
                 await _context.SaveChangesAsync();
 
-                //return Ok(); // Generates an error in browser because there is no View/Create.cshtml
                 return RedirectToAction("Index");
             }
 

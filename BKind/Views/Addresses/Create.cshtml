@@ -4,24 +4,30 @@
     ViewData["Title"] = "Creează o adresă nouă";
 }
 
-<h4>Creează o adresă nouă</h4>
+<h5>Adaugă o adresă nouă</h5>
+
+<a asp-action="Index" asp-controller="Requests" class="btn btn-lg btn-sm btn-outline-dark" style="margin-top:10px;">
+    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+    Înapoi la pagina principală
+</a>
+<br />
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-7">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Street" class="control-label">Strada</label>
+                <label asp-for="Street" class="control-label"><b>Strada*:</b></label>
                 <input asp-for="Street" class="form-control" />
                 <span asp-validation-for="Street" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Number" class="control-label">Număr</label>
+                <label asp-for="Number" class="control-label"><b>Număr*:</b></label>
                 <input asp-for="Number" class="form-control" />
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="City" class="control-label">Oraș</label>
+                <label asp-for="City" class="control-label"><b>Oraș*:</b></label>
                 <input asp-for="City" class="form-control" />
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
@@ -32,9 +38,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Lista adreselor</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

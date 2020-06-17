@@ -4,29 +4,38 @@
     ViewData["Title"] = "Creează";
 }
 
-<h4>Adaugă o nouă persoană</h4>
+<h5>Adaugă o nouă persoană</h5>
+
+<a asp-action="Index" asp-controller="Requests" class="btn btn-lg btn-sm btn-outline-dark" style="margin-top:10px;">
+    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+    Înapoi la pagina principală
+</a>
+<br />
+
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-7">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="FirstName" class="control-label">Prenume</label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label">Nume</label>
+                <label asp-for="LastName" class="control-label"><b>Nume*:</b></label>
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="DateOfBirth" class="control-label">Data nașterii</label>
+                <label asp-for="FirstName" class="control-label"><b>Prenume*:</b></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label"><b>Data nașterii*:</b></label>
                 <input asp-for="DateOfBirth" class="form-control" />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AddressID" class="control-label">Adresa</label>
+                <label asp-for="AddressID" class="control-label"><b>Alege adresa persoanei*:</b></label>
                 <select asp-for="AddressID" class="form-control" asp-items="ViewBag.AddressID"></select>
             </div>
             <div class="form-group">
@@ -36,9 +45,6 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Lista persoanelor</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

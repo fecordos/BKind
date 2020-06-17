@@ -5,7 +5,7 @@
 // clientul 'asculta' evenimentul serverului numit'ReceiveMessage'
 connection.on('ReceiveMessage', appendMessage);
 
-connection.start() 
+connection.start()
     .catch(error => {
         console.error(error.message);
     });

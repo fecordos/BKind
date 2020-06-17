@@ -11,6 +11,9 @@ using BKind.ViewModels;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
+using System.Dynamic;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Http;
 
 namespace BKind.Controllers
 {
@@ -26,25 +29,47 @@ namespace BKind.Controllers
         }
 
         // GET: Requests
-        public async Task<IActionResult> Index(string searchString)
+        public ActionResult Index(string searchString, [Bind("ID")] Category category)
         {
+
+            //dynamic model
+            dynamic reqModel = new ExpandoObject();
+            reqModel.Requests = _context.Request;
+            reqModel.Categories = _context.Category;
+            reqModel.Users = _context.Users;
+
+            //asignez unei variabile id-ul categoriei selectate, pt filtrare
+            var categoryID = category.ID;
+
+
             //searching 
             var requests = from model in _context.Request.Include(r => r.Category)
-                           .Include(r => r.Person).OrderByDescending(r => r.ID)  //vor fi afisate prima data cele mai recente cereri adaugate
+                           .Include(r => r.Person).OrderByDescending(r => r.ID)  //afisarea celor mai recente cereri adaugate
                            select model;
 
+            //cautare potrivire intre cuvantul furnizat de utilizator si titlul/descriere cerere
             if (!String.IsNullOrEmpty(searchString))
             {
                 requests = requests.Where(r => r.Title.Contains(searchString)
-                                               || r.Description.Contains(searchString));
+                                         || r.Description.Contains(searchString));
             }
-            if (requests == null)
-            {
-                return View();
+            else
+            { 
+                //filtrare dupa categorie
+                if (categoryID != 0)
+                {
+                    requests = requests.Where(r => r.CategoryID == categoryID);
+                }
+
             }
 
-            return View(await requests.ToListAsync());
-            
+            if (requests == null)
+                {
+                    return View();
+                }
+
+                reqModel.Requests = requests;
+                return View(reqModel);
         }
 
 
@@ -280,24 +305,5 @@ namespace BKind.Controllers
             return _context.Request.Any(e => e.ID == id);
         }
 
-
-        //filtrare categorii
-        //public async Task<IActionResult> FilteringRequests(IEnumerable<int> CategoriesIds)
-        //{
-        //    var requests = from model in _context.Request.Include(r => r.Category).Include(r => r.Person)
-        //                   select model;
-
-        //    if (!String.IsNullOrEmpty(CategoriesIds))
-        //    {
-        //        requests = requests.Where(r => r.CategoryID.Contains(CategoriesIds)
-        //                                       || r.Person.Address.City == SelectedCity);
-        //    }
-        //    if (requests == null)
-        //    {
-        //        return View("SearchNotFound");
-        //    }
-
-        //    return View(await requests.ToListAsync());
-        //}
     }
 }

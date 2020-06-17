@@ -1,6 +1,8 @@
-﻿
-@model IEnumerable<BKind.Models.Request>
-@using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<AppUser> _userManager;
+
+@model dynamic
+@*@model IEnumerable<BKind.Models.Request>*@
 
 
 @{
@@ -14,13 +16,13 @@
 <div class="row pt-3">
 
     <div class="col-sm-3" style="background-color:white;">
-        <partial name="_SidebarPartial"/>
+        <partial name="_SidebarPartial" />
     </div>
 
 
-    <div class="col-sm-7">
+    <div class="col-sm-6">
 
-        @if (!Model.Any())
+        @if (Model.Requests == null)
         {
 
             <div class="card" style="width: 25rem;">
@@ -39,7 +41,7 @@
             if (User.IsInRole("Administrators"))
             {
 
-                foreach (var item in Model)
+                foreach (Request item in Model.Requests)
                 {
                     <div class="card border-dark mb-3" style="width: 30rem;">
 
@@ -71,10 +73,13 @@
                                 </p>
 
                                 <a asp-controller="Requests" asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-light">
-                                    <i class="fa fa-sun-o" style="color:gold"></i>
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
                                     Detalii
                                 </a>
-                                <a asp-controller="Requests" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-light">Editează</a>
+                                <a asp-controller="Requests" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-light">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    Editează
+                                </a>
 
                             </div>
 
@@ -86,85 +91,113 @@
             }
             else
             {
-                foreach (var item in Model)
+                foreach (Request item in Model.Requests)
                 {
-    <div class="card border-dark mb-3" style="max-width: 30rem;">
+                    <div class="card border-dark mb-3" style="max-width: 30rem;">
 
-        <form asp-controller="ReqHistory" asp-action="AddReqToHistory" method="post">
+                        <form asp-controller="ReqHistory" asp-action="AddReqToHistory" method="post">
 
-            <input type="hidden" id="ID" name="ID" asp-for="@item.ID" />
-            <input type="hidden" id="CategoryID" name="CategoryID" asp-for="@item.CategoryID" />
-            <input type="hidden" id="Description" name="Description" asp-for="@item.Description" />
-            <input type="hidden" id="ImagePath" name="ImagePath" asp-for="@item.ImagePath" />
-            <input type="hidden" id="PersonID" name="PersonID" asp-for="@item.PersonID" />
-            <input type="hidden" id="Title" name="Title" asp-for="@item.Title" />
-
-
-            <div id="Title" class="card-header" style="background-color:white;">
-                @item.Title
+                            <input type="hidden" id="ID" name="ID" asp-for="@item.ID" />
+                            <input type="hidden" id="CategoryID" name="CategoryID" asp-for="@item.CategoryID" />
+                            <input type="hidden" id="Description" name="Description" asp-for="@item.Description" />
+                            <input type="hidden" id="ImagePath" name="ImagePath" asp-for="@item.ImagePath" />
+                            <input type="hidden" id="PersonID" name="PersonID" asp-for="@item.PersonID" />
+                            <input type="hidden" id="Title" name="Title" asp-for="@item.Title" />
 
 
-                <input id="Save" type="submit" value="Salvează în istoric" class="btn btn-sm btn-warning" style="background-color:gold; color:white; float:right;" />
+                            <div id="Title" class="card-header" style="background-color:white;">
+                                @item.Title
 
 
-            </div>
-
-            <div class="card-body text-dark">
-                <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="220" width="440" />
+                                <input id="Save" type="submit" value="Salvează în istoric" class="btn btn-sm btn-warning" style="background-color:gold; color:white; float:right;" />
 
 
-                <p id="Description" class="card-text">
-                    <br />
-                    @item.Description
-                </p>
+                            </div>
 
-            </div>
-        </form>
+                            <div class="card-body text-dark">
+                                <img class="imageThumbnail" src="~/images/@item.ImagePath" asp-append-version="true" alt="image" height="220" width="440" />
 
-        <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-light" style="float:right;">
-            <i class="fa fa-sun-o" style="color:gold"></i>
-            Detalii
-        </a>
 
-        <form asp-controller="ReqHistory" asp-action="RemoveReqFromHistory" asp-route-id="@item.ID" method="post">
+                                <p id="Description" class="card-text">
+                                    <br />
+                                    @item.Description
+                                </p>
 
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson; float:right;">
-                Elimină din istoric
-            </button>
+                            </div>
+                        </form>
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Eliminare cerere</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                        <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-light" style="float:right;">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                            Detalii
+                        </a>
+
+                        <form asp-controller="ReqHistory" asp-action="RemoveReqFromHistory" asp-route-id="@item.ID" method="post">
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: crimson; float:right;">
+                                Elimină din istoric
                             </button>
-                        </div>
-                        <div class="modal-body">
-                            Sigur vrei să elimini cererea din istoric?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Anulează</button>
 
-                            <button type="submit" class="btn btn-sm btn-danger" style="background-color: crimson;">
-                                Elimină
-                            </button>
-                        </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">Eliminare cerere</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Sigur vrei să elimini cererea din istoric?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Anulează</button>
+
+                                            <button type="submit" class="btn btn-sm btn-danger" style="background-color: crimson;">
+                                                Elimină
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
-                </div>
-            </div>
-
-        </form>
-    </div>
 
                 }
             }
         }
     </div>
+    <div class="col-sm-3">
+        <aside class="list-group" style="background-color:white;">
 
+            @foreach (var appUser in Model.Users)
+            {
+                //personalizare pagina principala
+                if (appUser.Id == _userManager.GetUserId(User))
+                {
+                    <p class="list-group-item" style="background-color:white;"><i class="fa fa-user-circle-o fa-2x" style="margin-bottom:10px; color:dimgrey"></i><br /><b style="color:dimgray;">@appUser.FirstName, bine ai venit!</b></p>
+                }
+            }
+
+            @*privilegii de administrator*@
+            @if (User.IsInRole("Administrators"))
+            {
+
+                <p class="list-group-item" style="background-color:gainsboro;"><i class="fa fa-key fa-2x" style="margin-bottom:10px;"></i><br /><b style="color:dodgerblue">privilegii de administrator</b></p>
+                <hr />
+                <a class="list-group-item" asp-controller="Admin" asp-action="UserManagement">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    Gestionare utilizatori
+                </a>
+                <a class="list-group-item" asp-controller="Admin" asp-action="RoleManagement">
+                    <i class="fa fa-superpowers" aria-hidden="true"></i>
+                    Gestionare roluri
+                </a>
+            }
+        </aside>
+    </div>
 </div>
 
 
@@ -172,25 +205,25 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    @*cod jquery pt a trimite datele din front-end in ReqHistory (AJAX)*@
+    @*cod jquery *@
 
     <script type="text/javascript">
 
 
-                $(document).ready(function () {
-                    $('#Save').on("click", function () {
+        $(document).ready(function () {
+            $('#Save').on("click", function () {
 
-                            $('#Save').css("display","none");
-                           $('#Eliminate').css("display","block");
-                           
-                        });
+                $('#Save').css("display", "none");
+                $('#Eliminate').css("display", "block");
 
-                        $('#Eliminate').on("click", function () {
-                            $('#Eliminate').css("display","none");
-                            $('#Save').css("display","block");
-                          
-                        });
-                    });
+            });
+
+            $('#Eliminate').on("click", function () {
+                $('#Eliminate').css("display", "none");
+                $('#Save').css("display", "block");
+
+            });
+        });
 
 
     </script>
