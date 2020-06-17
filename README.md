@@ -36,12 +36,12 @@ dar gestioneaza si utilizatorii aplicatiei (user management).
             - pentru admini, are in plus: Edit, Delete postare/request);
   - navigation bar-ul adminilor prezinta si sectiunea "Admin", unde pot gasi "User management" si "Role management"
 
-
+ - Salvarea/eliminarea postarii, ce prezinta interes pentru user, la pagina "Istoricul meu".
+ 
 :high_brightness:Functionalitati ramase de implementat: 
 
 - creare cookie persistent/sesiune temporara
 - sistemul de notificari
 - filtrarea postarilor dupa categoriile existente
-- salvarea/adaugarea postarii, ce prezinta interes pentru user, la pagina "Istoricul meu" -- work in progress
 - functionalitatea de mesagerie (userii si adminii pot trimite mesaje unui anumit user al aplicatiei, sau mai multor useri, simultan)
 - design-ul aplicatiei -- almost there
