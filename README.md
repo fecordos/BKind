@@ -24,7 +24,7 @@ dar gestioneaza si utilizatorii aplicatiei (user management).
   - poate realiza cautari printre postari (search bar)
   - pagina principala "Acasa" prezinta o sectiune in partea stanga, care pentru un user obisnuit are urmatoarele : 
   
-     a. "Istoricul meu" - unde se vor salva postarile salvate de user/cererile pe care vrea sa le indeplineasca - work in progress;
+     a. "Istoricul meu" - unde se vor salva postarile salvate de user/cererile pe care vrea sa le indeplineasca ;
      
      b. Setari profil (vizualizare/editare date cont, schimbare parola curenta, descarcare date personale, stergere definitiva a contului);
      
