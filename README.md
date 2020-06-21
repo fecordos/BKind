@@ -33,15 +33,11 @@ dar gestioneaza si utilizatorii aplicatiei (user management).
      d. Pentru admini prezinta, in plus: Lista adreselor, Lista persoanelor, Lista categoriilor, Adaugare cereri - pentru gestionarea/realizarea de operatii CRUD asupra bazei de date a aplicatiei;
   - pagina "Acasa" contine postarile adaugate de admin : 
             - user-ul obisnuit: vizualizare detalii + salvare postare in "Istoricul meu" ;
-            - pentru admini, are in plus: Edit, Delete postare/request);
-  - navigation bar-ul adminilor prezinta si sectiunea "Admin", unde pot gasi "User management" si "Role management"
+            - pentru admini, are in plus: Edit, Delete postare/request, sectiunea unde pot gasi "Gestionare conturi" si "Gestionare roluri");
 
  - Salvarea/eliminarea postarii, ce prezinta interes pentru user, la pagina "Istoricul meu".
  - Creare cookie persistent si sesiune temporara (selectare "Remember me")
  - Filtrarea postarilor dupa categoriile existente
  - Functionalitatea de mesagerie (creare ChatRoom/sectiune comuna tuturor utilizatorilor, folosind SignalR pentru servicii real-time, unde utilizatorii pot interactiona si cu administratorii aplicatiei, unde pot pune intrebari/posta anunturi)
 
- 
-:high_brightness:Functionalitati ramase de implementat: 
 
-- design-ul aplicatiei -- almost there
