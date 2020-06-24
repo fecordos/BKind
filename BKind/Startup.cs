@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BKind.Services;
 using BKind.Hubs;
-using Microsoft.CodeAnalysis.Options;
 
 namespace BKind
 {
@@ -36,11 +35,12 @@ namespace BKind
         {
             services.AddControllersWithViews();
 
+            //conectarea la BKindContext
             services.AddDbContext<BKindContext>(options =>
               options.UseSqlServer(
                   Configuration.GetConnectionString("BKindContext")));
 
-
+            //specificatii privind autentificarea
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 6;
@@ -59,14 +59,14 @@ namespace BKind
             {
                 var policy = new AuthorizationPolicyBuilder()
                                  .RequireAuthenticatedUser()
-                                 .Build(); //policy care se aplica global--asupra tuturor controllers--nimeni nu poate vedea paginile daca nu este logat
+                                 .Build(); //policy care se aplica global, asupra tuturor controllers, nimeni nu poate vedea paginile daca nu este logat
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-
             services.AddControllersWithViews();
-            services.AddSignalR(configure => configure.EnableDetailedErrors = true);
 
+            //adaugarea serviciilor de real-time
+            services.AddSignalR(configure => configure.EnableDetailedErrors = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,13 +84,13 @@ namespace BKind
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            //app.UseCookiePolicy();
-
             app.UseRouting();
-
+            
+            //autentificarea precede autorizarea utilizatorului
             app.UseAuthentication();
             app.UseAuthorization();
 
+            //configurarea rutelor
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

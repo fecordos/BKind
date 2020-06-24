@@ -48,9 +48,20 @@ else
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Editează</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Detalii</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Șterge</a>
+                    <a asp-action="Edit" asp-route-id="@item.ID"class="btn btn-sm btn-light">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    Editează
+                    </a> 
+
+                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-light">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i> 
+                    Detalii
+                    </a> 
+
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-danger">
+                    <i class="fa fa-trash"></i>
+                    Șterge
+                    </a>
                 </td>
             </tr>
         }

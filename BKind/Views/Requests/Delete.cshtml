@@ -4,7 +4,6 @@
     ViewData["Title"] = "Șterge";
 }
 
-<h1>Șterge</h1>
 
 <h3>Sigur vrei să ștergi această cerere din baza de date?</h3>
 <div>
@@ -39,7 +38,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="ID" />
-        <input type="submit" value="Șterge" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-danger">Lista cererilor</a>
+        <input type="submit" value="Șterge" class="btn btn-sm btn-danger" /> |
+        <a asp-action="Index" class="btn btn-sm btn-outline-dark">Lista cererilor</a>
     </form>
 </div>

@@ -22,14 +22,14 @@ namespace BKind.Controllers
         // Afisarea tuturor msgs din DB cand se incarca site-ul
         public async Task<IActionResult> Index()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = await _userManager.GetUserAsync(User); //identificarea user-ului curent
 
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.CurrentUsername = currentUser.UserName;
             }
 
-            var messages = await _context.Messages.ToListAsync();
+            var messages = await _context.Messages.ToListAsync(); //preluarea tuturor mesgs din db
             return View(messages);
         }
 
@@ -42,8 +42,8 @@ namespace BKind.Controllers
                 message.UserId = sender.Id;
                 message.Username = User.Identity.Name;
 
-                await _context.Messages.AddAsync(message);
-                await _context.SaveChangesAsync();
+                await _context.Messages.AddAsync(message); //adaugare mesaj la bd
+                await _context.SaveChangesAsync(); //salvarea schimbarilor
 
                 return RedirectToAction("Index");
             }

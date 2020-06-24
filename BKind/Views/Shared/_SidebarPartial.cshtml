@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<BKind.Models.Request>*@
-@model dynamic
+﻿@model dynamic
 
 <link href="~/css/sidebar.css" rel="stylesheet" />
 
@@ -48,8 +47,6 @@
                 <i class="fa fa-list"></i>
                 Lista categoriilor
             </a>
-
-
         }
 
     </div>
@@ -61,29 +58,35 @@
 
             @foreach (Category item in Model.Categories)
             {
-
                 <div class="form-check">
                     <input type="radio" name="ID" id="ID" value="@item.ID" asp-for="@item.ID" class="form-check-input">
                     <label asp-for="@item.ID" class="form-check-label" for="examplecheck">@item.Name</label>
                     <input type="hidden" asp-for="@item.ID" />
                 </div>
-
             }
-
             <br />
             <input type="submit" class="btn btn-outline-dark" value="Filtrează cererile" id="filterByCategory">
-
         </form>
     </div>
-
-
 </aside>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#filterByCategory').click(function () {
-            $('input[type="radio"]:checked');
+
+    //pastrarea categoriei selectate dupa submit
+    $(function () {
+        $("input[type=\"radio\"]").click(function () {
+            var thisElem = $(this);
+            var value = thisElem.val();
+            localStorage.setItem("option", value);
         });
+        var itemValue = localStorage.getItem("option");
+        if (itemValue !== null) {
+            $("input[value=\"" + itemValue + "\"]").click();
+        }
     });
+
 </script>
+
+
+

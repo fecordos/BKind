@@ -128,11 +128,7 @@ namespace BKind.Controllers
             return View();
         }
 
-        //[AllowAnonymous]
-        //public IActionResult Lockout()
-        //{
-        //    return View();
-        //}
+      
 
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using BKind.Data;
 using BKind.Models;
 using BKind.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BKind.Controllers
 {
@@ -17,12 +17,14 @@ namespace BKind.Controllers
 
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly BKindContext _context;
 
         public AdminController(UserManager<AppUser> userManager, 
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager, BKindContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _context = context;
         }
 
         //User management
@@ -79,7 +81,7 @@ namespace BKind.Controllers
         //GET
         public async Task<IActionResult> EditUser(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id); //identificare user dupa id
 
             if(user == null)
             {
@@ -105,7 +107,7 @@ namespace BKind.Controllers
                 user.Email = Email;
                 user.PhoneNumber = PhoneNumber;
 
-                var result = await _userManager.UpdateAsync(user);
+                var result = await _userManager.UpdateAsync(user); //metoda care realizeaza actualizarea datelor
 
                 if (result.Succeeded)
                 {
@@ -123,11 +125,22 @@ namespace BKind.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUser(string userId)
         {
-            AppUser appUser = await _userManager.FindByIdAsync(userId);
+            AppUser appUser = await _userManager.FindByIdAsync(userId); //identificare user dupa id
 
             if(appUser != null)
             {
-                IdentityResult result = await _userManager.DeleteAsync(appUser);
+                //sterg prima data, din baza de date, mesajele utilizatorului
+                var allMessages = await _context.Messages.ToListAsync();
+                for (int index = 0; index < allMessages.Count; index++)
+                {
+                    if (allMessages[index].UserId == userId)
+                    {
+                        allMessages[index].UserId.Remove(2);
+                    }
+                }
+
+
+                IdentityResult result = await _userManager.DeleteAsync(appUser); //stergerea user-ului din bd
                 if (result.Succeeded)
                 {
                     return RedirectToAction("UserManagement");
@@ -171,7 +184,7 @@ namespace BKind.Controllers
                 Name = addRoleViewModel.RoleName 
             };
 
-            IdentityResult result = await _roleManager.CreateAsync(role);
+            IdentityResult result = await _roleManager.CreateAsync(role); //crearea rolului cu datele primite din front
 
             if (result.Succeeded)
             {
@@ -245,7 +258,7 @@ namespace BKind.Controllers
             IdentityRole role = await _roleManager.FindByIdAsync(id);
             if(role != null)
             {
-                var result = await _roleManager.DeleteAsync(role);
+                var result = await _roleManager.DeleteAsync(role); //stergerea rolului
                 if (result.Succeeded)
                 {
                     return RedirectToAction("RoleManagement", _roleManager.Roles);
@@ -265,7 +278,7 @@ namespace BKind.Controllers
         //Users in roles
         public async Task<IActionResult> AddUserToRole(string roleId)
         {
-            var role = await _roleManager.FindByIdAsync(roleId);
+            var role = await _roleManager.FindByIdAsync(roleId); //cautare rol dupa id
             if(role == null)
             {
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
@@ -278,6 +291,7 @@ namespace BKind.Controllers
 
             foreach(var user in _userManager.Users)
             {
+                //daca utilizatorul nu are atasat rolul, ii este atasat 
                 if(!await _userManager.IsInRoleAsync(user, role.Name))
                 {
                     addUserToRoleViewModel.Users.Add(user);
@@ -299,7 +313,7 @@ namespace BKind.Controllers
                 return View(userRoleViewModel);
             }
 
-            var result = await _userManager.AddToRoleAsync(user, role.Name);
+            var result = await _userManager.AddToRoleAsync(user, role.Name); //atasarea rolului utilizatorului
 
             if (result.Succeeded)
             {
@@ -316,7 +330,7 @@ namespace BKind.Controllers
 
         public async Task<IActionResult> DeleteUserFromRole(string roleId)
         {
-            var role = await _roleManager.FindByIdAsync(roleId);
+            var role = await _roleManager.FindByIdAsync(roleId); //cautare rol dupa id
             if (role == null)
             {
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
@@ -331,7 +345,7 @@ namespace BKind.Controllers
             {
                 if (await _userManager.IsInRoleAsync(user, role.Name))
                 {
-                    deleteUserFromRoleViewModel.Users.Add(user);
+                    deleteUserFromRoleViewModel.Users.Add(user); //identificarea tuturor utilizatorilor cu acest rol
                 }
             }
 
@@ -341,15 +355,15 @@ namespace BKind.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUserFromRole(UserRoleViewModel userRoleViewModel)
         {
-            var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId);
-            var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId);
+            var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId); //cautare user dupa id
+            var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId); //cautare rol dupa id
 
             if (user == null)
             {
                 return View(userRoleViewModel);
             }
 
-            var result = await _userManager.RemoveFromRoleAsync(user, role.Name);
+            var result = await _userManager.RemoveFromRoleAsync(user, role.Name); //stergere rol
 
             if (result.Succeeded)
             {

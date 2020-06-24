@@ -26,6 +26,7 @@ namespace BKind.Services
 
         public Task Execute(string apiKey, string subject, string message, string email)
         {
+            //using SendGrid 
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
@@ -36,7 +37,7 @@ namespace BKind.Services
             };
             msg.AddTo(new EmailAddress(email));
 
-            // Disable click tracking.
+            // disable click tracking
             msg.SetClickTracking(false, false);
 
             return client.SendEmailAsync(msg);

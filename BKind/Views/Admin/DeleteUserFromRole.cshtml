@@ -4,16 +4,38 @@
     ViewData["Title"] = "Ștergere rol";
 }
 
-<h2>Ștergerea utilizatorului de la rol</h2>
 
-<form asp-controller="Admin" asp-action="DeleteUserFromRole">
-    <input type="hidden" name="roleId" value="@Model.RoleId" />
-    <select asp-for="UserId"
-            asp-items="@(new SelectList(Model.Users, "Id","Email"))">
-        <option>Elimină utilizator</option>
-    </select>
-    <input class="btn btn-primary" value="Elimină rolul utilizatorului" type="submit" />
-</form>
-<br />
-<a asp-action="RoleManagement" class="btn btn-primary">Finalizare</a>
+
+    <div class="jumbotron col-12" style="text-align:center;">
+
+
+        <h4>Anulează privilegiile acestui rol:</h4>
+
+
+        <hr class="my-2">
+
+        <div class="card" style="width: 35rem; text-align:center; margin-left:250px;">
+            <div class="card-body">
+                <h6 class="card-title" style="color:dodgerblue;">
+
+                    Această secțiune permite anularea drepturilor suplimentare. <br />
+                    Alege utilizatorii cărora vrei să le elimini aceste privilegii:
+                </h6>
+            </div>
+
+        </div>
+        <br />
+        <form asp-controller="Admin" asp-action="DeleteUserFromRole">
+            <input type="hidden" name="roleId" value="@Model.RoleId" />
+            <select asp-for="UserId"
+                    asp-items="@(new SelectList(Model.Users, "Id","Email"))">
+                <option>Selectează un user</option>
+            </select>
+            <input class="btn btn-sm btn-primary" value="Elimină rolul utilizatorului" type="submit" />
+        </form>
+        <br />
+        <a asp-action="RoleManagement" class="btn btn-sm btn-primary">Finalizare</a>
+
+    </div>
+
 

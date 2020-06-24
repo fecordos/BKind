@@ -34,5 +34,12 @@ namespace BKind.Models
         public int PersonID { get; set; } //FK
         public Person Person { get; set; } //nav property
 
+        //adaugam data la care a fost adaugata cererea in istoric
+        public DateTime DateAdded { get; set; }
+        public ReqHistory()
+        {
+            DateAdded = DateTime.Now;
+        }
+
     }
 }

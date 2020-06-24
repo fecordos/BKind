@@ -18,14 +18,14 @@
 <link href="~/css/chatRoomPage.css" rel="stylesheet" />
 
 <div class="jumbotron py-3" style="margin-bottom: 65px;">
-    <div class="container pre-scrollable">
+    <div class="container pre-scrollable" id="scroll">
 
         <div class="row">
             <div class="col">
                 <ul class="px-0 smooth-scroll list-unstyled" id="messageList">
                     @if (Model != null)
                     {
-                        @foreach (var message in Model.OrderBy(m => m.Id)) //ordonare
+                        @foreach (var message in Model.OrderBy(m => m.Id)) //ordonarea mesajelor
                         {
                             var builtClass = messageBaseClass;
                             builtClass += ((username == message.Username) ? messageSenderClass : messageOtherSenderClass);
@@ -70,8 +70,6 @@
     </div>
 
 </div>
-
-
 
 
 <div class="col-sm-3" style="background-color:white;">
@@ -139,4 +137,12 @@
     <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/js/chat.js"></script>
     <script src="~/js/signalrReqHandler.js"></script>
+
+<script type="text/javascript">
+
+    //scroll va fi pozitionat bottom
+    var chatMessScroll = document.getElementById("scroll");
+    chatMessScroll.scrollTop = chatMessScroll.scrollHeight;
+
+</script>
 }

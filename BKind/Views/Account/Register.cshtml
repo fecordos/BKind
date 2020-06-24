@@ -4,45 +4,56 @@
     var ReturnUrl = (string)ViewData["ReturnUrl"];
 }
 
-<h1>@ViewData["Title"]</h1>
+    <link href="~/css/register.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="card">
+            <div class="card-header">
+                <h3>@ViewData["Title"]</h3>
+            </div>
+            <div class="card-body">
+
+                <div class="d-flex justify-content-center links">
+                    Ai deja un cont?
+                    <a asp-action="Login" asp-route-returnUrl="@ReturnUrl" style="color:cornflowerblue;">Autentifică-te aici.</a>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Register" asp-route-returnUrl="@ReturnUrl" method="post">
+
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <input asp-for="FirstName" class="form-control" placeholder="Prenume*:" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="LastName" class="form-control" placeholder="Nume*:" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Email" class="form-control" placeholder="E-mail*:" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Password" class="form-control" placeholder="Parolă*:" />
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirmare parolă*:" />
+                            </div>
+                            <input type="submit" value="Înregistrează-te" class="btn float-right register_btn">
+                        </form>
+
+                    </div>
+                </div>
 
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register" asp-route-returnUrl="@ReturnUrl" method="post">
-            <h4>Creeză un cont nou.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FirstName">Prenume</label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName">Nume</label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email">E-mail</label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password">Parolă</label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword">Confirmare parolă</label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Înregistrează-te</button>
-        </form>
-        
+            
+        </div>
     </div>
 </div>
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

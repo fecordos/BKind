@@ -4,8 +4,8 @@
 
 @{
     ViewData["Title"] = "Detalii";
-    var imagePath = "~/images/" + (Model.Request.ImagePath ?? "defaultimage.jpg"); /*daca utilizatorul nu alege o poza, se pune implicit una*/
-}
+    var imagePath = "~/images/" + Model.Request.ImagePath; 
+    }
 
     <div>
 
@@ -32,25 +32,28 @@
 
                             @if (User.IsInRole("Administrators"))@*adminii pot realiza operatii CRUD*@
                             {
-                        <a asp-action="Edit" class="btn btn-lg btn-sm btn-outline-dark" asp-route-id="@Model.Request.ID">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            Editează cerere
-                        </a> <br /> <br />
-                                    <a asp-action="Index" asp-controller="ReqHistory" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">
-                                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                                        Istoric
-                                    </a>
+                                <a asp-action="Edit" class="btn btn-lg btn-sm btn-outline-dark" asp-route-id="@Model.Request.ID">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                     Editează cerere
+                                </a> <br /> <br />
+
+                                <a asp-action="Index" asp-controller="ReqHistory" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">
+                                      <i class="fa fa-tasks" aria-hidden="true"></i>
+                                      Istoric
+                                </a>
 
                             }
                             else
                             {
-                        <a asp-action="Index" asp-controller="ReqHistory" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">
-                            <i class="fa fa-list-alt" aria-hidden="true"></i>
-                            Istoricul meu
-                        </a>
+                                <a asp-action="Index" asp-controller="ReqHistory" class="btn btn-lg btn-sm btn-outline-dark" style="margin-bottom:10px;">
+                                  <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                  Istoricul meu
+                                </a>
 
 
                                 <form id="form" asp-controller="ReqHistory" asp-action="AddReqToHistory" method="post">
+
+                                    @*campuri ascunse, pentru trimiterea datelor din formular, la controller*@
 
                                     <input type="hidden" id="ID" name="ID" asp-for="@Model.Request.ID" />
                                     <input type="hidden" id="CategoryID" name="CategoryID" asp-for="@Model.Request.CategoryID" />
@@ -58,6 +61,7 @@
                                     <input type="hidden" id="ImagePath" name="ImagePath" asp-for="@Model.Request.ImagePath" />
                                     <input type="hidden" id="PersonID" name="PersonID" asp-for="@Model.Request.PersonID" />
                                     <input type="hidden" id="Title" name="Title" asp-for="@Model.Request.Title" />
+
                                     <input id="Save" type="submit" value="Salvează în istoric" class="btn btn-sm btn-warning" style="background-color: gold; color: white;" />
                                 </form>
 
@@ -83,7 +87,7 @@
 
                 <div class="card" style="width: 13rem;">
                     <div class="card-header">
-                        <p class="card-title" style="text-align:center;">Adresa</p>
+                        <p class="card-title" style="text-align:center;">Adresă persoană</p>
                     </div>
                     <div class="card-body" style="font-size:15px;">
                         Localitate/Oraș: <br /> @Model.Address.City <br />
@@ -101,8 +105,8 @@
                     <div class="card-body" style="font-size:15px;">
                         Prenume: @Model.Person.FirstName <br />
                         Nume: @Model.Person.LastName <br />
-                        Data nașterii: @Model.Person.DateOfBirth.Date
-                       
+                        Data nașterii: @Model.Person.DateOfBirth.Day/@Model.Person.DateOfBirth.Month/@Model.Person.DateOfBirth.Year
+
                     </div>
                 </div>
             </div>

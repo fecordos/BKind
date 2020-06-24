@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BKind.Models
 {
@@ -30,6 +27,14 @@ namespace BKind.Models
 
         public string UserId { get; set; } //FK
         public AppUser AppUser { get; set; }
+
+        //adaug data la care a fost postata cererea, pentru afisarea cronologica in istoric
+        public DateTime DateAdded { get; set; }
+
+        public Request()
+        {
+            DateAdded = DateTime.Now;
+        }
 
     }
 }

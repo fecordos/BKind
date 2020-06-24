@@ -1,8 +1,6 @@
 ﻿@model BKind.Models.Account.Login
 @using Microsoft.AspNetCore.Authentication;
 
-
-
 @{
     ViewData["Title"] = "Autentificare";
     var ReturnUrl = (string)ViewData["ReturnUrl"];
@@ -10,7 +8,6 @@
 
 
 <link href="~/css/login.css" rel="stylesheet" />
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 
@@ -25,13 +22,12 @@
                 <form asp-action="Login" asp-route-returnUrl="@ReturnUrl" id="account" method="post">
 
                     <div class="input-group form-group">
-                        @*<div asp-validation-summary="All" class="text-danger"></div>*@  @*validare client-side*@
 
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
                         <input asp-for="Email" type="text" class="form-control" placeholder="e-mail" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <span asp-validation-for="Email" class="text-danger"></span>  @*validare client-side*@
                     </div>
 
                     <div class="input-group form-group">
@@ -43,7 +39,7 @@
                     </div>
 
 
-                    <div @*class="row align-items-center remember"*@ class="form-group">
+                    <div class="row align-items-center remember">
                         <div class="checkbox">
                             <label asp-for="RememberMe">
                                 <input asp-for="RememberMe" />
@@ -60,11 +56,11 @@
             <div class="card-footer">
                 <div class="d-flex justify-content-center links">
                     Nu ai deja un cont?
-                    <a asp-action="Register" asp-route-returnUrl="@ReturnUrl">Creează unul aici</a>
+                    <a asp-action="Register" asp-route-returnUrl="@ReturnUrl" style="color:cornflowerblue;">Creează unul aici</a>
 
                 </div>
                 <div class="d-flex justify-content-center">
-                    <a asp-action="ForgotPassword" id="forgot-password">Ai uitat parola?</a>
+                    <a asp-action="ForgotPassword" id="forgot-password" style="color:cornflowerblue;" >Ai uitat parola?</a>
                 </div>
             </div>
         </div>

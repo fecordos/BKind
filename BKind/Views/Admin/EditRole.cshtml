@@ -4,10 +4,9 @@
     ViewData["Title"] = "Modificare rol";
 }
 
-<h2>Modifică rolul</h2>
 
 <form asp-controller="Admin" asp-action="EditRole" method="post" class="form-horizontal">
-    <h4>Modificarea detaliilor despre rol</h4>
+    <h5>Modifică detaliile acestui rol:</h5>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -29,8 +28,8 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary" value="Salvează rol" />
-            <a asp-action="RoleManagement" class="btn btn-primary">Anulează</a>
+            <input type="submit" class="btn btn-sm btn-primary" value="Salvează modificările" />
+            <a asp-action="RoleManagement" class="btn btn-sm btn-primary">Lista cu roluri</a>
         </div>
     </div>
 </form>
@@ -45,5 +44,5 @@
     }
 </ul>
 
-<a asp-action="AddUserToRole" asp-route-roleId="@Model.ID" class="btn btn-primary">Adaugă utilizatorului un rol</a>
-<a asp-action="DeleteUserFromRole" asp-route-roleId="@Model.ID" class="btn btn-primary">Șterge utilizatorului rolul</a>
+<a asp-action="AddUserToRole" asp-route-roleId="@Model.ID" class="btn btn-sm btn-primary">Adaugă utilizatorilor acest rol</a>
+<a asp-action="DeleteUserFromRole" asp-route-roleId="@Model.ID" class="btn btn-sm btn-primary">Șterge utilizatorilor acest rol</a>

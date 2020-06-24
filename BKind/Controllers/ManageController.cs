@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using BKind.Models;
 using BKind.Models.Manage;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -21,23 +18,20 @@ namespace BKind.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly ILogger<ManageController> _logger;
-        private readonly IEmailSender _emailSender;
-        private readonly UrlEncoder _urlEncoder;
+        
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
 
         public ManageController(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            ILogger<ManageController> logger,
-            IEmailSender emailSender,
-            UrlEncoder urlEncoder)
+            ILogger<ManageController> logger)
+            
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _emailSender = emailSender ?? throw new ArgumentNullException(nameof(emailSender));
-            _urlEncoder = urlEncoder;
+            
         }
 
         [ViewData]
@@ -67,27 +61,22 @@ namespace BKind.Controllers
         [TempData]
         public string StatusMessage { get; set; }
 
-        public IActionResult Notifications()
-        {
-            return View();
-        }
-
      
         public async Task<IActionResult> ChangePassword()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User); //identificare user curent
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var hasPassword = await _userManager.HasPasswordAsync(user);
+            var hasPassword = await _userManager.HasPasswordAsync(user); //identificarea parolei curente 
             if (!hasPassword)
             {
                 return RedirectToAction("SetPassword");
             }
 
-            var model = new ChangePassword();
+            var model = new ChangePassword(); 
             model.StatusMessage = StatusMessage;
             return View(model);
         }
@@ -100,13 +89,13 @@ namespace BKind.Controllers
                 return View(model);
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User); //identificare user curent
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword); //schimbarea parolei cu cea noua
             if (!changePasswordResult.Succeeded)
             {
                 foreach (var error in changePasswordResult.Errors)
@@ -118,7 +107,7 @@ namespace BKind.Controllers
 
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Parola ta a fosț schimbată cu succes.";
+            StatusMessage = "Parola ta a fost schimbată cu succes.";
 
             return RedirectToAction();
         }
@@ -146,7 +135,8 @@ namespace BKind.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            RequirePassword = await _userManager.HasPasswordAsync(user);
+            //inainte de stergerea contului, user-ul trebuie sa introduca parola contului
+            RequirePassword = await _userManager.HasPasswordAsync(user); 
             if (RequirePassword)
             {
                 if (!await _userManager.CheckPasswordAsync(user, model.Password))
@@ -156,14 +146,14 @@ namespace BKind.Controllers
                 }
             }
 
-            var result = await _userManager.DeleteAsync(user);
-            var userId = await _userManager.GetUserIdAsync(user);
+            var result = await _userManager.DeleteAsync(user); //stergere cont
+            var userId = await _userManager.GetUserIdAsync(user); 
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException($"Unexpected error occurred deleteing user with ID '{userId}'.");
             }
 
-            await _signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync(); //iesirea de pe platforma
 
             _logger.LogInformation("User with ID '{UserId}' deleted themselves.", userId);
 
@@ -247,6 +237,7 @@ namespace BKind.Controllers
                 user.City = model.City;
                 user.Country = model.Country;
                 user.Email = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
 
                 var result = await _userManager.UpdateAsync(user);
 

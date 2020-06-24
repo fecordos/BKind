@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿
 using System.Threading.Tasks;
 using BKind.Data;
 using BKind.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 
 namespace BKind.Controllers
 {
@@ -43,7 +37,7 @@ namespace BKind.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddReqToHistory([Bind("ID","CategoryID","Description",
-            "ImagePath","PersonID","Title")]Request model)        
+            "ImagePath","PersonID","Title", "DateAdded")]Request model)        
         {
             
                 var currentUser = await _userManager.GetUserAsync(User);
